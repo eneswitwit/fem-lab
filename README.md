@@ -1,4 +1,4 @@
-# Finite Element Method implementation in octave
+# Finite Element Method Implementation in Octave
 
 The target is to solve simple pde's with the unit square domain easily in octave.
 Goal is to get a stable solver and sufficient error and convergence analysis. For solving the linear system 
