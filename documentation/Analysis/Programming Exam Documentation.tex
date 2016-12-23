@@ -1,0 +1,36 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath}
+\usepackage{bm}
+\begin{document}
+
+\title{Programming Exam Documentation}
+
+\author{Marcel Dürr \and Enes Witwit}
+
+\tableofcontents
+
+\section{Introduction}
+
+
+
+\section{Weak Formulation}
+
+In order to apply some of the results from the lecture, we need to derive the weak formulation of the given problem 
+\begin{align}
+\mbox{Find } u\in C^2(\Omega)\mbox{ :}-\Delta u+u &= \cos(\pi x)\cos(\pi y) &&\mbox{in } \Omega \\
+\partial _n u &= 0 &&\mbox{on } \partial\Omega.
+\end{align}
+Multiplying with an arbitary $v\in C^2(\Omega)$ and integrating over $\Omega$ gives us
+\[-\int _\Omega \Delta uv \,\mbox{d} \bm{x} + \int _\Omega uv \,\mbox{d} \bm{x} = \int _ \Omega fv\,\mbox{d} \bm{x}\]
+where $f=\cos(\pi x)\cos(\pi y)$ and $\bm{x}=(x,y)$. Using Green's first formula and (2) we can obtain the weak formulation
+\[\int _\Omega \nabla u\nabla v \,\mbox{d} \bm{x} + \int _\Omega uv \,\mbox{d} \bm{x} = \int _ \Omega fv\,\mbox{d} \bm{x}\]
+From now on, we will denote the left hand side of the equation by $a(u,v)$, the right hand side by $F(v)$. Thus, we obtain the weak formulation
+\begin{equation}
+\mbox{Find }u\in H^1(\Omega) \mbox{ :} \quad a(u,v)=F(v)\quad \forall v \in H^1(\Omega)
+\end{equation}
+
+\section{Existence and Uniqueness of a Solution}
+
+
+
+\end{document}
