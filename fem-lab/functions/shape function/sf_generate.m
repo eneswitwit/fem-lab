@@ -1,0 +1,1 @@
+function SF = sf_generate(polynomial_deg)    dimension_domain = 2;    k = 0;    nodes_counter =  (factorial(dimension_domain)/(factorial(k)*factorial(dimension_domain-k))) * polynomial_deg^k * (polynomial_deg+1)^(dimension_domain-k);    for i=1:nodes_counter    SF(i,:) = hf_interpolation();    endforendfunction
