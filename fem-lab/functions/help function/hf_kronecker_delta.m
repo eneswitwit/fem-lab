@@ -1,0 +1,1 @@
+function solution = hf_kronecker_delta(i,j)    solution=0;    if(i==j)         solution=1;         endif    endfunction
