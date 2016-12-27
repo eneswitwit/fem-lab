@@ -7,8 +7,6 @@
 
 \author{Marcel Dürr \and Enes Witwit}
 
-\tableofcontents
-
 \section{Introduction}
 
 
@@ -24,13 +22,32 @@ Multiplying with an arbitary $v\in C^2(\Omega)$ and integrating over $\Omega$ gi
 \[-\int _\Omega \Delta uv \,\mbox{d} \bm{x} + \int _\Omega uv \,\mbox{d} \bm{x} = \int _ \Omega fv\,\mbox{d} \bm{x}\]
 where $f=\cos(\pi x)\cos(\pi y)$ and $\bm{x}=(x,y)$. Using Green's first formula and (2) we can obtain the weak formulation
 \[\int _\Omega \nabla u\nabla v \,\mbox{d} \bm{x} + \int _\Omega uv \,\mbox{d} \bm{x} = \int _ \Omega fv\,\mbox{d} \bm{x}\]
-From now on, we will denote the left hand side of the equation by $a(u,v)$, the right hand side by $F(v)$. Thus, we obtain the weak formulation
+From now on, we will denote the left hand side of the equation by $a(u,v)$ and the right hand side by $F(v)$. Thus, we obtain the weak formulation
 \begin{equation}
 \mbox{Find }u\in H^1(\Omega) \mbox{ :} \quad a(u,v)=F(v)\quad \forall v \in H^1(\Omega)
 \end{equation}
 
 \section{Existence and Uniqueness of a Solution}
 
+We can already see, that our bilinear form $a(\cdotp ,\cdot)$ is the inner product associated with the norm on our function space $H^1(\Omega)$. We want to use the Riesz representation theorem to prove existence and uniqueness of a solution. In order to do so, it remains to show that our functional $F(\cdot)$ is linear and bounded. Linearity follows from the properties of integration. Using Hoelder's inequality, we show that
+\begin{align*}
+F(u)&=\|fu\|_{L^1(\Omega)}\\
+	&\stackrel{\tiny\mbox{Hld.}}{\le} \|f\|_{L^2(\Omega)}\|u\|_{L^2(\Omega)}\\
+	&\le \|1\|_{L^2(\Omega)}\ \big(\|u\|_{L^2(\Omega)}+\|u\|_{L^2(\Omega)}\big)\\
+	&\le c\ \|u\|_{H^1(\Omega)}\mbox{,}
+\end{align*}
+where c depends on our domain $\Omega$. For our case, we have $\Omega=[0,1]^2$, in particular this means that $\Omega$ is bounded and our constant $c$ is finite. Therefore, $F(\cdot)$ is a bounded, linear functional and we can apply the Riesz representation theorem.
 
+\section{Finding the Analytical Solution}
+
+Now that we know that a unique solution exists, we want to actually compute it. We will use the ansatz $u=C\cos(\pi x)\cos(\pi y)$, with its gradient $\Delta u=2\pi^2 u$. Inserting in (1) gives us
+\begin{equation}
+-2C\pi^2 \cos(\pi x)\cos(\pi y) + C\cos(\pi x)\cos(\pi y)=\cos(\pi x)\cos(\pi y)
+\end{equation}
+\begin{align}
+&\Rightarrow - 2C\pi^2 + C =1\\
+&\Leftrightarrow C = \frac{1}{1-2\pi^2}
+\end{align}
+This leaves us with the solution $u=\frac{1}{1-2\pi^2}\cos(\pi x)\cos(\pi y)$.
 
 \end{document}

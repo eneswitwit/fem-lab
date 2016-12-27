@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.12.21)  21 DEC 2016 23:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.12.21)  27 DEC 2016 18:32
 entering extended mode
 **"./Programming Exam Documentation.tex"
 ("Programming Exam Documentation.tex"
@@ -102,34 +102,39 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
- ("Programming Exam Documentation.toc")
-\tf@toc=\write3
-\openout3 = `"Programming Exam Documentation.toc"'.
 
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 38.
+
+
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 38.
 
 [1
 
-{C:/Users/Marcel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+{C:/Users/Marcel/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}] [2]
 ("Programming Exam Documentation.aux") ) 
 Here is how much of TeX's memory you used:
- 926 strings out of 493333
- 10452 string characters out of 3139190
- 66354 words of memory out of 3000000
+ 923 strings out of 493333
+ 10380 string characters out of 3139190
+ 69354 words of memory out of 3000000
  4498 multiletter control sequences out of 15000+200000
  10425 words of font info for 37 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 27i,8n,20p,245b,117s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 27i,12n,20p,470b,140s stack positions out of 5000i,500n,10000p,200000b,50000s
 <C:/Program Files/MiKTeX 2.9/fonts/type
 1/public/amsfonts/cm/cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /amsfonts/cm/cmex10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
 s/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmm
 i8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmib10.pfb>
 <C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Progr
-am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/M
-iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on "Programming Exam Documentation.pdf" (1 page, 81900 bytes).
+am Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/M
+iKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/
+fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
+pe1/public/amsfonts/cm/cmsy8.pfb>
+Output written on "Programming Exam Documentation.pdf" (2 pages, 107666 bytes).
+
 PDF statistics:
- 38 PDF objects out of 1000 (max. 8388607)
+ 49 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
