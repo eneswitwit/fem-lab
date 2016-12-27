@@ -1,0 +1,1 @@
+function node = node_generate(polynomial_deg,mesh_size)    [vertex,cell] = mesh_generate(mesh_size);        endfunction

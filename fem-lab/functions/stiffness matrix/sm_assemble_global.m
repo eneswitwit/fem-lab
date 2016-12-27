@@ -1,0 +1,1 @@
+function SM  = sm_assemble_global(SF)    SM=zeros(length(SF),length(SF));endfunction
