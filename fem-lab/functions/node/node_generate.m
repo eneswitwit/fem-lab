@@ -1,1 +1,1 @@
-function node = node_generate(polynomial_deg,mesh_size)    [vertex,cell] = mesh_generate(mesh_size);        endfunction
+function node = node_generate(polynomial_deg,mesh_size)    x=0;    y=0;    i=1;    while y <= 1 &&  x <= 1        while x<=1             node(i,:)=[x,y];            x=x+mesh_size/polynomial_deg;            i++;        endwhile        y=y+mesh_size/polynomial_deg;        x=0;    endwhileendfunction
