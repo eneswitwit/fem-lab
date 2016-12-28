@@ -1,0 +1,1 @@
+function SM_local = sm_assemble_local(node_matrix,cell_nr,cell)endfunction
