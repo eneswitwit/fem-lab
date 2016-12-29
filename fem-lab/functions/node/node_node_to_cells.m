@@ -58,13 +58,25 @@ function [cell_no,sf_no] = node_node_to_cells(node_no,mesh_size,polynomial_deg)
             cell_no=[(floor(node_j/polynomial_deg))*cells_per_row+(node_i/polynomial_deg);(floor(node_j/polynomial_deg))*cells_per_row+(node_i/polynomial_deg)+1]
             sf_no=[(nodes_per_edge)*(sf_j+1);1+(nodes_per_edge*sf_j)]
         endif
-    else 
+    else
+        sf_i=(((node_i)/polynomial_deg)-floor((node_i)/polynomial_deg))*polynomial_deg 
         if (floor(node_j/polynomial_deg)==node_j/polynomial_deg)
-            sf_i=(((node_i)/polynomial_deg)-floor((node_i)/polynomial_deg))*polynomial_deg
-            cell_no=[((node_j/polynomial_deg)-1)*cells_per_row+floor(node_i/polynomial_deg)+1;((node_j/polynomial_deg))*cells_per_row+floor(node_i/polynomial_deg)+1]
-            sf_no=[sf_i+1;sf_i+nodes_per_edge*(nodes_per_edge-1)]            
+            if (node_j/polynomial_deg==0)
+                cell_no=((node_j/polynomial_deg))*cells_per_row+floor(node_i/polynomial_deg)+1
+                sf_no=sf_i+1
+            else
+                if (node_j==nodes_per_row-1)
+                    cell_no=((node_j/polynomial_deg)-1)*cells_per_row+floor(node_i/polynomial_deg)+1
+                    sf_no=nodes_per_edge*(nodes_per_edge-1)+sf_i+1  
+                else
+                    cell_no=[((node_j/polynomial_deg)-1)*cells_per_row+floor(node_i/polynomial_deg)+1;((node_j/polynomial_deg))*cells_per_row+floor(node_i/polynomial_deg)+1]
+                    sf_no=[nodes_per_edge*(nodes_per_edge-1)+sf_i+1;sf_i+1]            
+                endif
+            endif
         else
-        
+            sf_j=(((node_j)/polynomial_deg)-floor((node_j)/polynomial_deg))*polynomial_deg
+            cell_no=(floor((node_j)/polynomial_deg))*cells_per_row+floor((node_i)/polynomial_deg)+1
+            sf_no=sf_j*nodes_per_edge+sf_i+1
         endif
     endif
 endfunction
