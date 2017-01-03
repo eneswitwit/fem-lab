@@ -1,6 +1,7 @@
 \documentclass[a4paper,12pt]{article}
 \usepackage{amsmath}
 \usepackage{bm}
+\usepackage[mathscr]{euscript}
 \begin{document}
 
 \title{Programming Exam Documentation}
@@ -49,5 +50,33 @@ Now that we know that a unique solution exists, we want to actually compute it. 
 &\Leftrightarrow C = \frac{1}{1-2\pi^2}
 \end{align}
 This leaves us with the solution $u=\frac{1}{1-2\pi^2}\cos(\pi x)\cos(\pi y)$.
+
+\section{Integrals and Transformations}
+
+The transformations we have to use for our FEM-code are very simple, since our mesh will be generated uniformly. Ultimately, we will only have to scale and displace our reference cell. We decided, that we will hard-code this property, since it will heavily simplifiy the computation of the local stiffness-matrices and the right-hand-side of the linear system, as we will see in brief.
+\\ \\
+Let $T$ be a cell of the mesh with vertices $v_1,v_2,v_3,v_4$, where $v_1$ is the vertex on the bottom left and h is the length of every edge. $\hat T = [0,1]^2$ shall be our reference cell. Then, our transformation $F$ will look like 
+\[F \smash : \  \hat T \rightarrow T, \ \ \bm{\hat x}=\begin{pmatrix}\hat x \\ \hat y \end{pmatrix} \mapsto \begin{pmatrix}h \ 0 \\ 0 \ h\end{pmatrix} \begin{pmatrix}\hat x \\ \hat y \end{pmatrix} + v_1 := \begin{pmatrix}x\\y\end{pmatrix} := \bm{x}\]
+We immediately can see, that the jacobian $J$ is given by
+\begin{equation}
+J(\bm{\hat x})=J=\begin{pmatrix}h \ 0\\0 \ h\end{pmatrix}\mbox{,}
+\end{equation}
+in particular, it is independet of $\bm{\hat x}$. Consequently, we also get
+\begin{equation}
+|\mbox{det}(J(\bm{\hat x}))|=|\mbox{det}(J)|=h^2\mbox{and} \ J^{-1}=h^{-1}\begin{pmatrix}1 \ 0 \\ 0 \ 1\end{pmatrix}
+\end{equation}
+Using the results from the lecture on the transformation of our bilinear form $a(\cdotp, \cdot)$ and using (7) and (8), we can compute the stiffness matrix in the following way
+\[a^{(T)}_{ij} = \int_{\hat T}\nabla p_i \,\cdotp \nabla p_j\,\mbox{d}\bm{\hat x} + h^2\int_{\hat T}p_i p_j\,\mbox{d}\bm{\hat x}\mbox{,}\]
+where $p_i$ and $p_j$ are our shape functions.\\ \\
+\textit{Remark:} Note that the $\nabla$ in our formula refers to the gradient with respect to $\bm{\hat x}=\begin{pmatrix} \hat x \\ \hat y\end{pmatrix}$.
+\\ \\
+For the right-hand side, we have to look at the substitution formula for higher dimension integrals. But first of all, we need do split the intagral up. Let $\phi_i$ be a basis function of our domain $\Omega$, $\mathscr{T}_h$ our meshcells and $\mathscr{T}_i$ the mesh cells, on which $\phi_i !!!!!\! =0$. Then we get
+\begin{align*}
+\int_{\Omega}f(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x}&=\sum_{T\in \mathscr{T}_h} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
+													&=\Sigma \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
+													&=\Sigma \int_Tf(\bm{x})p^{(T)}_{i^{(T)}}(\bm{x})\ \mbox{d}\bm{x} \\
+													&=\Sigma \int_{\hat T}f(F^{(T)}(\bm{\hat x})\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x} \\
+													&=\Sigma \int_{\hat T}f(h\bm{\hat x}+v^{(T)}_1)\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x} 
+\end{align*}
 
 \end{document}
