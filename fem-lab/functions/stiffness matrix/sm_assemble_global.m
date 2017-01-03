@@ -1,1 +1,1 @@
-function SM  = sm_assemble_global(SF)    SM=zeros(length(SF),length(SF));endfunction
+function SM  = sm_assemble_global(SF,mesh_size)    SM_local = sm_assemble_localS(SF);endfunction
