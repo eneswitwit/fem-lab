@@ -69,14 +69,15 @@ Using the results from the lecture on the transformation of our bilinear form $a
 \[a^{(T)}_{ij} = \int_{\hat T}\nabla p_i \,\cdotp \nabla p_j\,\mbox{d}\bm{\hat x} + h^2\int_{\hat T}p_i p_j\,\mbox{d}\bm{\hat x}\mbox{,}\]
 where $p_i$ and $p_j$ are our shape functions.\\ \\
 \textit{Remark:} Note that the $\nabla$ in our formula refers to the gradient with respect to $\bm{\hat x}=\begin{pmatrix} \hat x \\ \hat y\end{pmatrix}$.
+\textit{Remark:} Note that for affine transformations, the local stiffness matrices do not depend on the cell $T$, for which we want to compute it. Therefore, every local matrix looks the same and we only have to compute it once.
 \\ \\
-For the right-hand side, we have to look at the substitution formula for higher dimension integrals. But first of all, we need do split the intagral up. Let $\phi_i$ be a basis function of our domain $\Omega$, $\mathscr{T}_h$ our meshcells and $\mathscr{T}_i$ the mesh cells, on which $\phi_i !!!!!\! =0$. Then we get
+For the right-hand side, we have to look at the substitution formula for higher dimension integrals. But first of all, we need do split the intagral up. Let $\phi_i$ be a basis function of our domain $\Omega$, $\mathscr{T}_h$ our meshcells and $\mathscr{T}_i$ the mesh cells, on which $\phi_i \neq 0$. Then we get
 \begin{align*}
-\int_{\Omega}f(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x}&=\sum_{T\in \mathscr{T}_h} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
-													&=\Sigma \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
-													&=\Sigma \int_Tf(\bm{x})p^{(T)}_{i^{(T)}}(\bm{x})\ \mbox{d}\bm{x} \\
-													&=\Sigma \int_{\hat T}f(F^{(T)}(\bm{\hat x})\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x} \\
-													&=\Sigma \int_{\hat T}f(h\bm{\hat x}+v^{(T)}_1)\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x} 
+\int_{\Omega}f(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x}&=\sum_{T\in\mathscr{T}_h} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
+													&=\sum_{T\in\mathscr{T}_i} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
+													&=\sum_{T\in\mathscr{T}_i} \int_Tf(\bm{x})p^{(T)}_{i^{(T)}}(\bm{x})\ \mbox{d}\bm{x} \\
+													&=\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(F^{(T)}(\bm{\hat x})\hat p_{i^{(T)}}(\bm{\hat x})|\mbox{det}(J)|\ \mbox{d}\bm{\hat x} \\
+													&=h^2\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(h\bm{\hat x}+v^{(T)}_1)\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x}						
 \end{align*}
 
 \end{document}
