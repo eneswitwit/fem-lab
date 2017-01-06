@@ -1,0 +1,1 @@
+function correct = test_sf_generate()    % Test sf_generate for polynomial degree 1    shape_function_matrix = [1,-1,-1,1;0,1,0,-1;0,0,1,-1;0,0,0,1];    shape_function_matrix_generated = sf_generate(1);    correct=0;    if(shape_function_matrix == shape_function_matrix_generated)        correct=1;    endifendfunction
