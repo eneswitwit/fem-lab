@@ -1,0 +1,1 @@
+function val = int_colloc(f)    n = 8;    [t, ~, ~, q] = colloc (n);    val = q'*f(t,t)*q;endfunction
