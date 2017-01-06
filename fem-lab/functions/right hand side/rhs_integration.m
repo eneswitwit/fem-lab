@@ -5,8 +5,7 @@ function rhs = rhs_integration(mesh_size,polynomial_deg,cell,vertex,SF)
     
     for i=1:number_of_nodes
         RHS=0;
-        i
-        [active_cell,active_sf]=node_node_to_cells(i,mesh_size,polynomial_deg)
+        [active_cell,active_sf]=node_node_to_cells(i,mesh_size,polynomial_deg);
         for k=1:rows(active_cell)
             active_cell_no=active_cell(k);
             active_vertex=vertex(active_cell_no,:);
