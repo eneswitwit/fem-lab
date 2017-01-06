@@ -2,7 +2,7 @@ function test()
     
     tic
     
-    for k=1:5
+    k=1
     
     mesh_size=0.5;
     pol_deg=k;
@@ -11,7 +11,7 @@ function test()
     cells_per_row=(1/mesh_size);
     nodes_per_row=(pol_deg*cells_per_row)+1;
        
-    u=cos((1/nodes_per_row)*(1:nodes_per_row^2))  
+    u=ones(1, nodes_per_row^2)
     
     x=0:0.05:1;
     y=0:0.05:1;
@@ -29,8 +29,5 @@ function test()
     figure(k)
     mesh(x,y,Z)
     
-    endfor
-    
-    toc
     
 end
