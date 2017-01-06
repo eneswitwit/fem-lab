@@ -1,0 +1,1 @@
+function solution = ls_solve(global_matrix, right_hand_side)    solution = global_matrix \ right_hand_side;endfunction
