@@ -1,1 +1,1 @@
-function value = int_gauss(x,w,f)    dim = length(x);    value = 0;    for i=1:dim        for j=1:dim            value = value + f(x(i),x(j))*w(j);        endfor    endforendfunction
+function value = int_gauss(x,w,f)    dim = length(x);    value = 0;    for i=1:dim        for j=1:dim            value = value + f(x(i),x(j))*w(j)*w(i);        endfor    endforendfunction
