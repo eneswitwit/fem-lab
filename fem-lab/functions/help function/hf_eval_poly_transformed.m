@@ -2,6 +2,8 @@ function val = hf_eval_poly_transformed(x,y,coefficient_vector,scaling,displacem
     j=1;        % order of basis in the coefficient vector
     level=0;    % the level represents the structure of the ordering of the basisfunctions of the polynomial. It could be described
     val=0;      % as the highest exponent allowed at a specific moment.
+    
+    %The following code is almost the exact same code as in hf_eval_poly. We substituted x and y in a way, such that our polynomial is defined on a mesh cell rather than our reference cell. 
     while j < length(coefficient_vector)
         exponent_x=level;
         exponent_y=0;
