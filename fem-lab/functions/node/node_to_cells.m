@@ -1,13 +1,28 @@
-function [cell_no,sf_no] = node_node_to_cells(node_no,mesh_size,polynomial_deg)
+function [cell_no,sf_no] = node_to_cells(node_no,mesh_size,polynomial_deg)
+    %Let node_no be the index of a node (global numbering)
+    %This function shall help us to construct our basis functions
+    % For a given index i, this function will give us the numbers of mesh-cells [cell_no] and their respective shape function [sf_no]. When 'glued together', this will yield our i_th basis function.
+    
+    % Useful computations
     cells_per_row=(1/mesh_size);
     nodes_per_row=(polynomial_deg*cells_per_row)+1;
     nodes_per_edge=polynomial_deg+1;
     node_j=0;
+    % At first, we transform the lexicographic ordering into a x- and y-coordinate.
     while (node_j+1)*nodes_per_row<node_no
         node_j++;
     endwhile
     node_i=node_no-node_j*nodes_per_row-1;
-    node_j;
+    % The following code consists of many tests, to determine where the node is located on the mesh.
+    % Generally, we test if the node has the same x- and/or y-coordinate as a vertex from our cell.
+    % If both coordinates match, the node is located on a vertex, which means the respective basis function is non-zero on all adjacent cells.
+    % If only one coordinate is a match, the node lies on an edge, the adjacent cells are therefore non-zeros
+    % If there aren't any matches, the node lies in the interior of a cell, this cell will be the only non-zero cell
+    % Additionally, in the first two cases we have to check if the node lies on the boundary, since this reduces the number of cells used for computation
+    % Given the location of the node, it remains a combinatoric  exercise to determine the active cell/shape function.
+    
+    % Instead of compairing the actual coordinates, we again use a combinatoric approach since we know how many nodes we have on any edge,
+    % Let k be the polynomial degree, then every k-th node in x-direction will match with a vertex' x-coordinate, same for y-direction
     if ((floor(node_i/polynomial_deg)==node_i/polynomial_deg))
         if (floor(node_j/polynomial_deg)==node_j/polynomial_deg)  
             if (node_i==0)
@@ -97,6 +112,7 @@ function [cell_no,sf_no] = node_node_to_cells(node_no,mesh_size,polynomial_deg)
         endif
     endif
     
+    % This was added, because octave would give outputs that weren't integer
     cell_no=round(cell_no);
     sf_no=round(sf_no);
     
