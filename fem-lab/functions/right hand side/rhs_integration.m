@@ -15,7 +15,7 @@ function rhs = rhs_integration(mesh_size,polynomial_deg,cell,vertex,SF)
             active_vertex=vertex(cell(active_cell_no,1),:);
             active_sf_no=active_sf(k);
             f =  @(x,y) cos((mesh_size*x+active_vertex(1))*pi)*cos((mesh_size*y+active_vertex(2))*pi).*hf_eval_poly(x,y,SF(active_sf_no,:));
-            integral=int_gauss(sample_points,weights,f);
+            integral=int_gauss(sample_points,weights,sample_points,weights,f);
             RHS=RHS+integral;
         endfor
         rhst(i)=RHS;
