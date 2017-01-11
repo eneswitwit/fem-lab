@@ -2,18 +2,59 @@
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage[mathscr]{euscript}
+\usepackage{framed}
+\usepackage{graphicx}
+
 \begin{document}
 
 \title{Programming Exam Documentation}
 
 \author{Marcel Dürr \and Enes Witwit}
 
+\pagestyle{empty}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Titelblatt der Arbeit
+\begin{titlepage}
+
+%Logo
+\begin{center} 
+{\Huge Numerical methods for partial differential equations}
+\vspace*{1cm}
+
+{\Large Programming Exam}
+\vspace*{1.5cm}
+
+by \\[0.5cm]
+
+{\Large Enes Witwit and Marcel Duerr}
+\vspace*{1.5cm}
+
+Examined by  \\[0.5cm]
+{\Large Prof. Dr. Kanschat}
+\vspace*{3cm}
+
+Faculty for math and computer science\\[0.5cm]
+University of Heidelberg \\[0.8cm]
+\includegraphics[scale=0.2]{hd-logo.svg} 
+\end{center}
+\end{titlepage}
+
 \section{Introduction}
-
-
+The programming exam states the following task.
+\begin{framed}
+Write a finite element code in your preferred programming language solving the boundary value problem:
+\begin{align}
+\mbox{Find } u\in C^2(\Omega)\mbox{ :}-\Delta u+u &= \cos(\pi x)\cos(\pi y) &&\mbox{in } \Omega \\
+\partial _n u &= 0 &&\mbox{on } \partial\Omega.
+\end{align}
+Here, $\Omega = [0,1]^2$.
+\end{framed}
 
 \section{Weak Formulation}
-
 In order to apply some of the results from the lecture, we need to derive the weak formulation of the given problem 
 \begin{align}
 \mbox{Find } u\in C^2(\Omega)\mbox{ :}-\Delta u+u &= \cos(\pi x)\cos(\pi y) &&\mbox{in } \Omega \\
