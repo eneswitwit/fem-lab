@@ -1,4 +1,4 @@
-function val = error_L2_error(f,g)
+function val = error_L2(f,g)
     
     %this function will give us an estimation of the L2-error, by using Gauss-quadrature
     
