@@ -12,7 +12,7 @@
 
 In this document, we will recapitulate our code and provide further explanations on selected excerpts of our code
 
-\section{Mesh Generator}
+\section{Mesh}
 
 We start of with our mesh generator 'mesh\_generate'. Our domain $\Omega = [0,1]^2$ will not be subject to change for this task, therefore our only input will be the mesh size $h$. The result will be two matrices, namely \textit{vertex\_matrix} and \textit{cell\_matrix}. \textit{vertex\_matrix} will store the coordinates of each vertex, while \textit{cell\_matrix} only stores the numbers of the four vertices of each cell.
 \\
@@ -28,6 +28,13 @@ An essential concept for finite element methods would be shape functions. We hav
 \item $p_i(x_j)=\delta_{ij}, \ x_j \mbox{node}$
 \item $p_i$ is a polynomial on each edge.
 \end{enumerate} 
+ 
+A way to achieve this, is to choose the location of the nodes in the same way as our mesh. Afterwards, we choose appropriate base-polynomials. If we want polynomials of degree $k$ on the edges, the appropriate basis would be $\{x^iy^j, \ i,j=0...k\}$. Although the resulting polynomials are of order $2k$, they are only of order $k$ in each variable and therefore only of order $k$ on each edge. A mesh generated with mesh-size $\fraction{1}{k}$ will yield $k+1$ nodes on each edge; the interpolation is well-posed. \\
+\textit{Remark}: The way we order our basis has to be consistent for the entire code, because we only store the coefficients when we want to store a polynomial. In particular, this means that one entry of the coefficient vector must refer to the same polynomial basis element, even for different orders of polynomials. Effectively, this means that the basis for a higher order polynomial can only add basis elements at the end of any lower order polynomial basis. \\
+
+\textit{sf\_generate} follows this scheme closely. Since the shape functions only depend on the polynomial degree $k$ we want to have on the edges, our only input will be the integer $k$. The function will create the nodes using \textit{mesh\_generate} with mesh-size $\fraction{1}{k}$. Next, it will create a data-set, containing the coordinates and the value at these coordinates for each node. In total, we get $(k+1)^2:=n$ nodes, their values are computed using the Kronecker Delta. This will ensure, that property 1) holds true when interpolating over all these points. The interpolation is solved by 
+\[\begin{pmatrix} 1 \ x_0 \ \cdots\ x_0^ky_0^k \\ \vdots \ \vdots \ \ddots \ \vdots \\ 1 \ x_{n} \ \cdots \ x_{n}^ky_{n}^k \end{pmatrix}
+\begin{pmatrix} a_0 \\ \vdot \\ a_n \end{pmatrix}\]
 
 
 \section{Weak Formulation}
