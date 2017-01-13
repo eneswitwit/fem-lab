@@ -24,7 +24,7 @@ function rhs = rhs_integration(mesh_size,polynomial_deg,cell,vertex,SF,f)
             active_vertex=vertex(cell(active_cell_no,1),:);
             active_sf_no=active_sf(k);
             % This transformation is further explained in our documentation
-            g =  @(x,y) f(mesh_size*(x,y)+active_vertex).*hf_eval_poly(x,y,SF(active_sf_no,:));
+            g =  @(x,y) f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)).*hf_eval_poly(x,y,SF(active_sf_no,:));
             integral=int_gauss(sample_points,weights,sample_points,weights,f);
             RHS=RHS+integral;
         endfor
