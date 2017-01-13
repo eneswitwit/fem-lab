@@ -2,6 +2,8 @@
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage[mathscr]{euscript}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
 \begin{document}
 
 \title{Additional Comments on our Code}
@@ -28,16 +30,34 @@ An essential concept for finite element methods would be shape functions. We hav
 \item $p_i(x_j)=\delta_{ij}, \ x_j \mbox{node}$
 \item $p_i$ is a polynomial on each edge.
 \end{enumerate} 
- 
-A way to achieve this, is to choose the location of the nodes in the same way as our mesh. Afterwards, we choose appropriate base-polynomials. If we want polynomials of degree $k$ on the edges, the appropriate basis would be $\{x^iy^j, \ i,j=0...k\}$. Although the resulting polynomials are of order $2k$, they are only of order $k$ in each variable and therefore only of order $k$ on each edge. A mesh generated with mesh-size $\fraction{1}{k}$ will yield $k+1$ nodes on each edge; the interpolation is well-posed. \\
+A way to achieve this, is to choose the location of the nodes in the same way as our mesh. Afterwards, we choose appropriate base-polynomials. If we want polynomials of degree $k$ on the edges, the appropriate basis would be $\{x^iy^j, \ i,j=0...k\}$. Although the resulting polynomials are of order $2k$, they are only of order $k$ in each variable and therefore only of order $k$ on each edge. A mesh generated with mesh-size $\frac{1}{k}$ will yield $k+1$ nodes on each edge; the interpolation is well-posed. \\
 \textit{Remark}: The way we order our basis has to be consistent for the entire code, because we only store the coefficients when we want to store a polynomial. In particular, this means that one entry of the coefficient vector must refer to the same polynomial basis element, even for different orders of polynomials. Effectively, this means that the basis for a higher order polynomial can only add basis elements at the end of any lower order polynomial basis. \\
+\\
+\textit{sf\_generate} follows this scheme closely. Since the shape functions only depend on the polynomial degree $k$ we want to have on the edges, our only input will be the integer $k$. The function will create the nodes using \textit{mesh\_generate} with mesh-size $\frac{1}{k}$. Next, it will create a data-set, containing the coordinates and the value at these coordinates for each node. In total, we get $(k+1)^2:=n$ nodes, their values are computed using the Kronecker Delta. This will ensure, that property 1) holds true when interpolating over all these points. The interpolation is done by solving
+\[\begin{pmatrix} 1 &\ x_0 &\ \cdots &\ x_0^ky_0^k \\
+\vdots &\ \vdots &\ \ddots &\ \vdots \\ 
+1 &\ x_{n} &\ \cdots &\ x_{n}^ky_{n}^k \end{pmatrix}
+\begin{pmatrix} a_0 \\ \vdots \\ a_n \end{pmatrix}=\begin{pmatrix} b_0 \\ \vdots \\ b_n \end{pmatrix}\]
+The output of our function is the matrix $SF$, which stores the coefficient vectors of each shape function in its rows. Again, we see that a consistent numbering is needed when we want to evaluate a shape function. Let's look at some shape functions:\\
+\textit{Example}: Let the polynomial degree on the edges be 1. The four resulting shape functions:\\
+\includegraphics[scale=0.35]{P1} \includegraphics[scale=0.35]{P2} \includegraphics[scale=0.35]{P3} \includegraphics[scale=0.35]{P4}
+You can clearly see, that each shape function has the value 1 at one vertex, and 0 at all the other vertices
 
-\textit{sf\_generate} follows this scheme closely. Since the shape functions only depend on the polynomial degree $k$ we want to have on the edges, our only input will be the integer $k$. The function will create the nodes using \textit{mesh\_generate} with mesh-size $\fraction{1}{k}$. Next, it will create a data-set, containing the coordinates and the value at these coordinates for each node. In total, we get $(k+1)^2:=n$ nodes, their values are computed using the Kronecker Delta. This will ensure, that property 1) holds true when interpolating over all these points. The interpolation is solved by 
-\[\begin{pmatrix} 1 \ x_0 \ \cdots\ x_0^ky_0^k \\ \vdots \ \vdots \ \ddots \ \vdots \\ 1 \ x_{n} \ \cdots \ x_{n}^ky_{n}^k \end{pmatrix}
-\begin{pmatrix} a_0 \\ \vdot \\ a_n \end{pmatrix}\]
+\section{Stiffness Matrix}
+Next up is the assembly of the stiffness matrix, this will be the left hand side of our linear system. The original idea behind the stiffness matrix was to build every combination of our basis functions in our bilinear form, namely $A_{ij}=a(\phi_i,\phi_j)$. As seen in the lecture, it is more efficient to compute a \textit{local} stiffness matrix for each cell, and then insert these values in the right way in a global stiffness matrix. This approach proves to be even more efficient, considering that in our case, the local stiffness matrices are identical for each cell (\textit{see also}: Theoretical Construct, Chapter 'Integrals and Transformations').\\
+\\
+The computation of the local matrix is done by \textit{sm\_assemble\_local}. As already shown, the computation will not depend on a specific cell, therefore we only need the mesh-size $h$ and the shape function coefficients $SF$. Furthermore, we need several help functions which will compute the required integrals
+\begin{itemize}
+\item \textit{hf\_eval\_poly} will evaluate a given polynomal at a given point, by using our specific polynomial basis and a coefficient vector
+\item \textit{sf\_derivate} will return the coefficient vectors for the derivative in x and y direction for a given polynomial. 
+\item \textit{int\_gauss\_weights} will return quadrature points and weigths for a given order and a given quadratic domain.
+\item \textit{int\_gauss} will evaluate a given function at the quadrature points and sum over the product of the quadrature weigths. 
+\end{itemize} 
+Note that the computation of the quadrature points and the actual quadrature is split up into two function. The transformations we use enable us to only integrate over the unit square. Therefore, we only have to compute the quadrature points and weights once. Since this operation is rather expensive, this will save alot of recources.\\
+Having these functions at hand, the local matrix can be easily computed
 
 
-\section{Weak Formulation}
+
 
 In order to apply some of the results from the lecture, we need to derive the weak formulation of the given problem 
 \begin{align}
