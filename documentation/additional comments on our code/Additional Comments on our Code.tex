@@ -53,9 +53,31 @@ The computation of the local matrix is done by \textit{sm\_assemble\_local}. As 
 \item \textit{int\_gauss\_weights} will return quadrature points and weigths for a given order and a given quadratic domain.
 \item \textit{int\_gauss} will evaluate a given function at the quadrature points and sum over the product of the quadrature weigths. 
 \end{itemize} 
-Note that the computation of the quadrature points and the actual quadrature is split up into two function. The transformations we use enable us to only integrate over the unit square. Therefore, we only have to compute the quadrature points and weights once. Since this operation is rather expensive, this will save alot of recources.\\
-Having these functions at hand, the local matrix can be easily computed
+Note that the computation of the quadrature points and the actual quadrature is split up into two function. The transformations we use enable us to only integrate over the unit square. Therefore, we only have to compute the quadrature points and weights once. This will save alot of recources.\\
+Having these functions at hand, the local matrix can be easily computed. The symmetric bilinear form will result in a symmetric local matrix, we will only compute on half if the matrix.\\
+\\
+The next step will be the assembly of the global stiffness matrix.
 
+\section{Right Hand Side}
+The linear system is still missing its right hand side. We already discussed the computation of it in the 'Theoretical Construct', Chapter 'Integrals and Transformations'. The function \textit{rhs\_integration} will compute the right hand side, it has three essential steps:
+\begin{enumerate}
+\item Find the cells, on which the current basis function is not vanishing (we will call these cells \textit{active}
+\item Find the appropriate shape function for each active cell, to ensure continuity
+\item Sum up over all active cells, integrate the appropriate shape functions over the active cell 
+\end{enumerate}
+The function \textit{node\_to\_cells} will have the number of a global node, the mesh-size and the polynomial degree as an input. It will 'build' a basis function, which has the value $1$ at this node, and $0$ at all the other nodes, by telling us, which shape function we have to evaluate on which cell. Effectively, we will obtain a matrix, with the cell number in one column, and the appropriate shape function number in the other column. Step 1) and 2) are therefore done.\\
+\\
+Step 3) will only consist of the computation of the integrals, which will be handled by our functions \textit{int\_gauss} and \textit{int\_gauss\_weights}. We will use the transformations we already discussed in the chapter 'Integrals and Transformations'.
+
+\section{Linear Solvers}
+The global stiffness matrix will be sparse, due to the way we chose the basis functions (zero on the vast majority of the cells). The prefered solvers for linear systems with sparse matrices are iterative solvers. We implemented two common algorithms, namely the \textit{generalized minimal residual method} and the \textit{conjugate gradient method}. 
+We are left with a coefficient vector $u$. We will get our solution, by building the linear combination of the basis ${\phi_i}$ with $u$: 
+\[u_h = \sum \phi_i u_i\]
+Remember, that we do not actually have the basis functions $\phi_i$ at hand, since we accessed the needed values by using shape functions and transforming the integral. We will need an auxiliary function to evaluate $u_h$
+
+\section{Evaluation of the Solution}
+The idea behind \textit{hf\_eval\_solution} is to find the indices of the basis functions, that do not vanish at a given point $(x,y)$. Similar to the calculation of the right hand side, we will need to know which shape function should be evaluated at which cell. Additionally, we need to know to which entry of the coefficient vector $u$ the computation correlates.\\
+\textit{hf\_eval\_solution} starts off by searching for adjacent cells to the given point $(x,y)$, at which we want to evaluate our solution. Once we have the numbers of the active cells, we want to know, which nodes are located on these cells. We do know, that for every node in one of the active cells, we get a non-zero basis function at $(x,y)$, with a correlating entry in $u$.  
 
 
 
