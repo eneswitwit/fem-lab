@@ -1,0 +1,1 @@
+function val = int_gauss_vectorized(x_1,w_1,x_2,w_2,f)     % x are the sample points and w are the weights.    % f is a function.    % Calculate number of sample points.    [X_1,X_2]=meshgrid(x_1,x_2);    [W_1,W_2]=meshgrid(w_1,w_2);    % Initialize starting value        % Calculcate 2 dimensional gauss    val=sum(sum(f(X_1,X_2).*W_2.*W_1));    endfunction

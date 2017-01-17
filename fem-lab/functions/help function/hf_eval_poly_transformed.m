@@ -8,18 +8,18 @@ function val = hf_eval_poly_transformed(x,y,coefficient_vector,scaling,displacem
         exponent_x=level;
         exponent_y=0;
         while(exponent_y < level)
-            val= val + coefficient_vector(j)*(scaling^(-1)*(x-displacement(1))).^(exponent_x)*(scaling^(-1)*(y-displacement(2))).^(exponent_y);
+            val= val + coefficient_vector(j)*(scaling.^(-1).*(x-displacement(1))).^(exponent_x).*(scaling.^(-1).*(y-displacement(2))).^(exponent_y);
             exponent_y++;
             j++;
         endwhile
         exponent_x = 0;
         exponent_y = level;
         while(exponent_x < level)
-            val= val+ coefficient_vector(j)*(scaling^(-1)*(x-displacement(1))).^(exponent_x)*(scaling^(-1)*(y-displacement(2))).^(exponent_y);
+            val= val+ coefficient_vector(j)*(scaling.^(-1)*(x-displacement(1))).^(exponent_x).*(scaling.^(-1).*(y-displacement(2))).^(exponent_y);
             exponent_x++;
             j++;
         endwhile
-        val= val+ coefficient_vector(j)*(scaling^(-1)*(x-displacement(1))).^(level)*(scaling^(-1)*(y-displacement(2))).^(level);
+        val= val+ coefficient_vector(j)*(scaling.^(-1)*(x-displacement(1))).^(level).*(scaling.^(-1).*(y-displacement(2))).^(level);
         j++;
         level++;
     endwhile
