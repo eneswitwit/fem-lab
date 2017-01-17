@@ -1,4 +1,5 @@
-function rhs = rhs_integration(mesh_size,SF,f)
+function rhs = rhs_integration_vectorized(mesh_size,SF,f)
+    tic
     %Let cell be the matrix, which stores the vertices for each cell
     %Let vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
@@ -8,7 +9,7 @@ function rhs = rhs_integration(mesh_size,SF,f)
     % Initialize Gauss Quadratur
     [vertex,cell]=mesh_generate(mesh_size);
     polynomial_deg = sqrt(length(SF))-1;
-    [sample_points,weights] = int_gauss_weights(polynomial_deg^2,0,1);
+    [sample_points,weights] = int_gauss_weights(polynomial_deg*100,0,1);
     % Useful computations for later use
     cells_per_row=(1/mesh_size);
     number_of_nodes=((polynomial_deg*cells_per_row)+1)^2;
@@ -19,19 +20,20 @@ function rhs = rhs_integration(mesh_size,SF,f)
     for i=1:number_of_nodes
         RHS=0;
         % Our function 'node_to_cell' will tell us for a given node, which shape function we have to evaluate on which cell.
-        [active_cell,active_sf]=node_to_cells(i,mesh_size,polynomial_deg);
+        [active_cell,active_sf]=node_to_cells(i,mesh_size,polynomial_deg)
         for k=1:rows(active_cell)
-            active_cell_no=active_cell(k);
-            active_vertex=vertex(cell(active_cell_no,1),:);
-            active_sf_no=active_sf(k);
+            k
+            active_cell_no=active_cell(k)
+            active_vertex=vertex(cell(active_cell_no,1),:)
+            active_sf_no=active_sf(k)
             % This transformation is further explained in our documentation
             g =  @(x,y) f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)).*hf_eval_poly(x,y,SF(active_sf_no,:));
-            integral=int_gauss(sample_points,weights,sample_points,weights,g);
+            integral=int_gauss_vectorized(sample_points,weights,sample_points,weights,g);
             RHS=RHS+integral;
         endfor
         rhst(i)=RHS;
     endfor
 
     rhs=mesh_size^2*rhst';
-    
+    toc
 endfunction
