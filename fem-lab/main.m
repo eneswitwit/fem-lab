@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 function [SM,rhs] = main()
+=======
+function main()
+    tic
+>>>>>>> origin/master
     % Add all subfolders to working directory
     addpath(genpath([pwd '/functions']))
     % Initialize parameters mesh-size and polynomial degree
-    mesh_size=1/2
-    pol_deg=2
+    mesh_size=1/100
+    pol_deg=1
     % Initialize right hand side of strong formulation
     f = @(x,y) cos(x*pi).*cos(y*pi);
     %f=@(x,y) 3;
@@ -20,9 +25,9 @@ function [SM,rhs] = main()
     u_coeff=ls_solve(SM,rhs);
     disp("------------------Solved linear system------------------");
     m_plot_solution(u_coeff,pol_deg,mesh_size)
-    %u=@(x,y) hf_eval_solution(x,y,u_coeff,Cell,Vertex,pol_deg,SF);
-    %error_L2(u,u_exact,100)
-    
+    u=@(x,y) hf_eval_solution(x,y,u_coeff,Cell,Vertex,pol_deg,SF);
+    error_L2(u,u_exact,100)
+    final=toc
     
     
 endfunction
