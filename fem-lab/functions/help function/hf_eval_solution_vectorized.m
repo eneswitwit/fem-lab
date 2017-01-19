@@ -1,4 +1,4 @@
-function val=hf_eval_solution(x,y,u,cell_matrix,vertex_matrix,polynomial_deg,SF)
+function val=hf_eval_solution_vectorized(x,y,u,cell_matrix,vertex_matrix,polynomial_deg,SF)
     %Let (x,y) be the point of evaluation,
     %Let u be the solution of the linear system
     %Let cell_matrix be the matrix, wich stores the numbers of the four vertices of the i_th cell in the i_th row
@@ -71,11 +71,8 @@ function val=hf_eval_solution(x,y,u,cell_matrix,vertex_matrix,polynomial_deg,SF)
         %Note, that the code above only converted the local node numbering to the global node numbering. It is clear, that two adjacent cells share global node points, which lie on the edge bewteen them. 
         %Therefore, we have to remove the duplicate nodes, since exactly one shape function correlates to one node
         [active_node,local_node,active_cell_vector]=hf_remove_duplicates(active_node,local_node,active_cell_vector);
-        for i=1:length(active_node)
-            %Our matrix SF stores the coefficients of the shape functions. These are defined on our reference cell, and therefore, have to be transformed to fulfil their purpose as basis functions for our space.
-            add=u(active_node(i))*hf_eval_poly_transformed(x,y,SF(local_node(i),:),mesh_size,vertex_matrix(cell_matrix(active_cell_vector(i),1),1),vertex_matrix(cell_matrix(active_cell_vector(i),1),2));
-            val+=add;
-        endfor
+        hf_eval_poly_transformed(x,y,SF(local_node,:),mesh_size,vertex_matrix(cell_matrix(active_cell_vector,1),1),vertex_matrix(cell_matrix(active_cell_vector,1),2));
+        val=u(active_node)'*diag(hf_eval_poly_transformed(x,y,SF(local_node,:),mesh_size,vertex_matrix(cell_matrix(active_cell_vector,1),1),vertex_matrix(cell_matrix(active_cell_vector,1),2)));
     endif
 
 

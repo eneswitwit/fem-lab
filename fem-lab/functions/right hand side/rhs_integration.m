@@ -1,4 +1,5 @@
 function rhs = rhs_integration(mesh_size,SF,f)
+    tic
     %Let cell be the matrix, which stores the vertices for each cell
     %Let vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
@@ -26,12 +27,12 @@ function rhs = rhs_integration(mesh_size,SF,f)
             active_sf_no=active_sf(k);
             % This transformation is further explained in our documentation
             g =  @(x,y) f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)).*hf_eval_poly(x,y,SF(active_sf_no,:));
-            integral=int_gauss(sample_points,weights,sample_points,weights,g);
+            integral=int_gauss_vectorized(sample_points,weights,sample_points,weights,g);
             RHS=RHS+integral;
         endfor
         rhst(i)=RHS;
     endfor
 
     rhs=mesh_size^2*rhst';
-    
+    toc
 endfunction

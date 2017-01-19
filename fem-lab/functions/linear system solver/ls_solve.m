@@ -1,6 +1,5 @@
 function [x] = ls_solve(A,b)
     
-    [~,p] = chol(A)
     p=0
     if p==0
         %x = ls_cg(A,b,b);

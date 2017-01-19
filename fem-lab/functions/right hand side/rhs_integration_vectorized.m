@@ -6,34 +6,25 @@ function rhs = rhs_integration_vectorized(mesh_size,SF,f)
     
     %This function will give us the right hand side of the linear system
     
-    % Initialize Gauss Quadratur
+    % Useful computations for later use
     [vertex,cell]=mesh_generate(mesh_size);
     polynomial_deg = sqrt(length(SF))-1;
-    [sample_points,weights] = int_gauss_weights(polynomial_deg*100,0,1);
-    % Useful computations for later use
+    nodes_per_cell=(polynomial_deg+1)^2;
     cells_per_row=(1/mesh_size);
     number_of_nodes=((polynomial_deg*cells_per_row)+1)^2;
+    cell_nodes=mesh_cell(mesh_size,polynomial_deg);
     
-    % Each node on our mesh represents one basis function. 
-    % This means there will be only a small number of cells, which are non-zero for any given integration over the product of the basis functions and the right hand side .
-    % We will denote these cells as 'active' cells, the respective shape function on the cell will be denoted as active shape function
-    for i=1:number_of_nodes
-        RHS=0;
-        % Our function 'node_to_cell' will tell us for a given node, which shape function we have to evaluate on which cell.
-        [active_cell,active_sf]=node_to_cells(i,mesh_size,polynomial_deg)
-        for k=1:rows(active_cell)
-            k
-            active_cell_no=active_cell(k)
-            active_vertex=vertex(cell(active_cell_no,1),:)
-            active_sf_no=active_sf(k)
-            % This transformation is further explained in our documentation
-            g =  @(x,y) f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)).*hf_eval_poly(x,y,SF(active_sf_no,:));
-            integral=int_gauss_vectorized(sample_points,weights,sample_points,weights,g);
-            RHS=RHS+integral;
-        endfor
-        rhst(i)=RHS;
+    % Initialize Gauss Quadratur
+    [sample_points,weights] = int_gauss_weights(polynomial_deg*10,0,1);
+    
+    rhs=zeros(number_of_nodes,1);
+    
+    for k=1:cells_per_row^2
+    % This transformation is further explained in our documentation
+        g =  @(x,y) f(mesh_size*x+vertex(cell(k,1),1),mesh_size*y+vertex(cell(k,1),2)).*hf_eval_poly(x,y,SF);
+        integral=int_gauss(sample_points,weights,sample_points,weights,g);
+        rhs(cell_nodes(k,:)')=rhs(cell_nodes(k,:)')+integral;
     endfor
-
-    rhs=mesh_size^2*rhst';
+    rhs=rhs*mesh_size^2;
     toc
 endfunction
