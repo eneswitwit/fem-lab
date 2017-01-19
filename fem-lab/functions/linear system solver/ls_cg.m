@@ -1,5 +1,5 @@
 function [x0] = ls_cg(A,b,x0)
-    
+    tic
     count=1;
     
     r0=b-A*x0;
@@ -16,5 +16,8 @@ function [x0] = ls_cg(A,b,x0)
         r0=r1;
         count++;
     endwhile 
-    
+    disp(['FCG converged with relative tolerance ', ...
+                    num2str(r0'*r0), ...
+                    ' at iteration number ', ...
+                    num2str(count)])
 endfunction
