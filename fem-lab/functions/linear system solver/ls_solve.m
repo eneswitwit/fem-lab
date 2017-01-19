@@ -1,11 +1,12 @@
 function [x] = ls_solve(A,b)
+
+    % Calculate initial guess with pcg
+    x= pcg(A,b,10^(-10),100);
     
-    p=0
-    if p==0
-        %x = ls_cg(A,b,b);
-    else
-        %[x, error, iter, flag] = ls_gmres( A, 0*b, b, ichol(A), 100, 100, 10^-6 )
-    end
-    x=pcg(A,b,10^(-10),10000);
+    % Use initial guess for FGMRES
+    x= ls_fgmres(A,b,10,10^(-20),500,eye(rows(A)),x);
+    
+    % Error by linear solver
     ls_error=(A*x-b)'*(A*x-b)
+    
 end

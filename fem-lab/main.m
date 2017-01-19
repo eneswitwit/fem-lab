@@ -1,13 +1,9 @@
-<<<<<<< HEAD
-function [SM,rhs] = main()
-=======
 function main()
     tic
->>>>>>> origin/master
     % Add all subfolders to working directory
     addpath(genpath([pwd '/functions']))
     % Initialize parameters mesh-size and polynomial degree
-    mesh_size=1/100
+    mesh_size=1/10;
     pol_deg=1
     % Initialize right hand side of strong formulation
     f = @(x,y) cos(x*pi).*cos(y*pi);
