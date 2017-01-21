@@ -9,7 +9,7 @@ function rhs = rhs_integration(mesh_size,SF,f)
     % Initialize Gauss Quadratur
     [vertex,cell]=mesh_generate(mesh_size);
     polynomial_deg = sqrt(length(SF))-1;
-    [sample_points,weights] = int_gauss_weights(polynomial_deg^2,0,1);
+    [sample_points,weights] = int_gauss_weights(100,0,1);
     % Useful computations for later use
     cells_per_row=(1/mesh_size);
     number_of_nodes=((polynomial_deg*cells_per_row)+1)^2;

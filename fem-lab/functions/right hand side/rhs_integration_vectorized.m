@@ -22,7 +22,7 @@ function rhs = rhs_integration_vectorized(mesh_size,SF,f)
     for k=1:cells_per_row^2
     % This transformation is further explained in our documentation
         g =  @(x,y) f(mesh_size*x+vertex(cell(k,1),1),mesh_size*y+vertex(cell(k,1),2)).*hf_eval_poly(x,y,SF);
-        integral=int_gauss_vectorized(sample_points,weights,sample_points,weights,g);
+        integral=int_gauss(sample_points,weights,sample_points,weights,g);
         rhs(cell_nodes(k,:)')=rhs(cell_nodes(k,:)')+integral;
     endfor
     rhs=rhs*mesh_size^2;
