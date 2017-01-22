@@ -1,5 +1,4 @@
 function rhs = rhs_integration(mesh_size,SF,f)
-    tic
     %Let cell be the matrix, which stores the vertices for each cell
     %Let vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
@@ -9,7 +8,7 @@ function rhs = rhs_integration(mesh_size,SF,f)
     % Initialize Gauss Quadratur
     [vertex,cell]=mesh_generate(mesh_size);
     polynomial_deg = sqrt(length(SF))-1;
-    [sample_points,weights] = int_gauss_weights(100,0,1);
+    [sample_points,weights] = int_gauss_weights(10,0,1);
     % Useful computations for later use
     cells_per_row=(1/mesh_size);
     number_of_nodes=((polynomial_deg*cells_per_row)+1)^2;
@@ -34,5 +33,4 @@ function rhs = rhs_integration(mesh_size,SF,f)
     endfor
 
     rhs=mesh_size^2*rhst';
-    toc
 endfunction

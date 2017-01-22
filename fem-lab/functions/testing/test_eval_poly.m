@@ -1,5 +1,6 @@
-function test_eval_poly()
-
+function test_eval_poly_transformed()
+    % This is a rather informal test for correctness
+    % 
     SF=sf_generate(2);
     x=0:0.1:1;
     h=0.5;

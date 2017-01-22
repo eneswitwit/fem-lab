@@ -1,10 +1,10 @@
 function main()
     tic
     % Add all subfolders to working directory
-    addpath(genpath([pwd '/functions']))
+    addpath(genpath([pwd '\functions']))
     % Initialize parameters mesh-size and polynomial degree
-    mesh_size=1/16;
-    pol_deg=2;
+    mesh_size=1/64;
+    pol_deg=1;
     % Initialize right hand side of strong formulation
     f = @(x,y) cos(x*pi).*cos(y*pi);
     % Initialize exact solution
