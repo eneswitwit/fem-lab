@@ -27,9 +27,10 @@ function main()
     % hf_eval_solution is used to evaluate the approximation, given the coefficients u_coeff;
     u=@(x,y) hf_eval_solution(x,y,u_coeff,Cell,Vertex,pol_deg,SF);
     % m_plot will plot the approximation, the exact solution and the right hand side of the strong form to illustrate, that it is in fact a multiple of the solution
-    m_plot_solution(u_coeff,pol_deg,mesh_size)
+    m_plot_solution(u_coeff,pol_deg,mesh_size);
     % error_L2 computes the error, using the exact solution and the L2-norm
-    error_L2(u,u_exact,10)
+    error_L2(u,u_exact,10);
+    error_runge(0.1,1)
     % overall runtime using 'tic' 'toc'
     overall_runtime=toc
     
