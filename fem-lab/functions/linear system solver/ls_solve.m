@@ -1,5 +1,5 @@
 function [x,ls_error_cg,ls_error_fgm,cg_runtime,gmres_runtime] = ls_solve(A,b)
-
+    
     % FGMRES
     tic
     % Calculate initial guess with pcg
