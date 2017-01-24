@@ -1,6 +1,6 @@
 function main()
     % Add all subfolders to working directory
-    addpath(genpath([pwd '\functions']))
+    addpath(genpath([pwd '/functions']))
     
     % Initialize parameters mesh-size and polynomial degree
     mesh_size=1/2;
