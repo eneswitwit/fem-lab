@@ -1,4 +1,4 @@
-function rhs = rhs_integration(mesh_size,SF,f)
+function rhs = rhs_integration(Vertex,Cell,SF,f)
     %Let cell be the matrix, which stores the vertices for each cell
     %Let vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
@@ -6,12 +6,12 @@ function rhs = rhs_integration(mesh_size,SF,f)
     %This function will give us the right hand side of the linear system
     
     % Initialize Gauss Quadratur
-    [vertex,cell]=mesh_generate(mesh_size);
-    polynomial_deg = sqrt(length(SF))-1;
     [sample_points,weights] = int_gauss_weights(10,0,1);
     % Useful computations for later use
+    mesh_size=Vertex(2,1)-Vertex(1,1);
+    pol_deg = sqrt(length(SF))-1;
     cells_per_row=(1/mesh_size);
-    number_of_nodes=((polynomial_deg*cells_per_row)+1)^2;
+    number_of_nodes=((pol_deg*cells_per_row)+1)^2;
     
     % Each node on our mesh represents one basis function. 
     % This means there will be only a small number of cells, which are non-zero for any given integration over the product of the basis functions and the right hand side .
@@ -19,10 +19,10 @@ function rhs = rhs_integration(mesh_size,SF,f)
     for i=1:number_of_nodes
         RHS=0;
         % Our function 'node_to_cell' will tell us for a given node, which shape function we have to evaluate on which cell.
-        [active_cell,active_sf]=node_to_cells(i,mesh_size,polynomial_deg);
+        [active_cell,active_sf]=node_to_cells(i,mesh_size,pol_deg);
         for k=1:rows(active_cell)
             active_cell_no=active_cell(k);
-            active_vertex=vertex(cell(active_cell_no,1),:);
+            active_vertex=Vertex(Cell(active_cell_no,1),:);
             active_sf_no=active_sf(k);
             % This transformation is further explained in our documentation
             g =  @(x,y) f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)).*hf_eval_poly(x,y,SF(active_sf_no,:));

@@ -1,17 +1,17 @@
-function val=hf_eval_solution_vectorized(x,y,u,cell_matrix,vertex_matrix,polynomial_deg,SF)
+function val=hf_eval_solution_vectorized(x,y,u,cell_matrix,vertex_matrix,SF)
     %Let (x,y) be the point of evaluation,
     %Let u be the solution of the linear system
     %Let cell_matrix be the matrix, wich stores the numbers of the four vertices of the i_th cell in the i_th row
     %Let Vertex_matrix be the matrix, in which the coordinates of the i_th vertex are stored in the i_th row 
-    %Let polynomial_deg, be the polynomial degree of the shape functions on the edges of a cell
+    %Let pol_deg, be the polynomial degree of the shape functions on the edges of a cell
     %Let SF be the matrix, which stores the coefficients of the shapefunctions on our reference square. Each row corresponds to one shapefunction
     
     %Calculate useful measurements, so we don't have to pass it as a parameter
+    pol_deg=sqrt(rows(SF))-1;
     mesh_size=vertex_matrix(2,1)-vertex_matrix(1,1);
     cells_per_row=(1/mesh_size);
-    nodes_per_row=(polynomial_deg*cells_per_row)+1;
-    nodes_per_edge=polynomial_deg+1;  
-    val=0;
+    nodes_per_row=(pol_deg*cells_per_row)+1;
+    nodes_per_edge=pol_deg+1;
     
     %The following code will check, whether the point (x,y) is located on a node, an edge or the interior of a cell. If (x,y) is on an edge, we also check if it's on the boundary. 
     %If (x,y) is located on a node, we know that only one basis function phi_i is non-zero at this point. Therefore, the value at this point is determined by the coefficient u(i)
