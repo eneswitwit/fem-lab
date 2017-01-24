@@ -2,7 +2,7 @@ function main()
     % Add all subfolders to working directory
     addpath(genpath([pwd '/functions']))
     
-    for n=4:4
+    for n=3:3;
         
         % Initialize parameters mesh-size and polynomial degree
         mesh_size=1/(2^n);
@@ -13,7 +13,7 @@ function main()
         u_exact=@(x,y) cos(x*pi).*cos(y*pi)*(1/(1+2*pi*pi));
         
         % Start dial gauge
-        overall_runtime = tic;
+        tic
         
         % Initialize our mesh and our coefficient matrix for the shape functions
         [Vertex,Cell]=mesh_generate(mesh_size);
@@ -46,16 +46,14 @@ function main()
         
         % --- Error Analysis ---
         % error_runge will compute an estimation of the L2 Error
-        % error_runge(0.2,pol_deg);
+        %error_runge(0.2,pol_deg);
         % error_L2 computes the error, using the exact solution and the L2-norm
-        L2_error(n)=error_L2(u,u_exact,100);
+        %error_L2(u,u_exact,10);
         % ----------------------
        
         % overall runtime using 'tic' 'toc'
-        toc(overall_runtime)
+        overall_runtime=toc
         
     endfor
-    
-    L2_error
     
 endfunction
