@@ -57,6 +57,7 @@ Note that the computation of the quadrature points and the actual quadrature is 
 Having these functions at hand, the local matrix can be easily computed. The symmetric bilinear form will result in a symmetric local matrix, we will only compute on half if the matrix.\\
 \\
 The next step will be the assembly of the global stiffness matrix.
+Let $(a_{ij})^T$ be the local stiffness matrix for a cell $T$. For any given $i$ and $j$, the entry in the global stiffness matrix can be obtained by $A_{ij}=\sum_{T \in \mathscr{T}_h}a_{\rho(i)\rho(j)}^T$ 
 
 \section{Right Hand Side}
 The linear system is still missing its right hand side. We already discussed the computation of it in the 'Theoretical Construct', Chapter 'Integrals and Transformations'. The function \textit{rhs\_integration} will compute the right hand side, it has three essential steps:

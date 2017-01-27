@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.12.21)  15 JAN 2017 22:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (MiKTeX 2.9.6100 64-bit) (preloaded format=pdflatex 2016.12.21)  27 JAN 2017 14:49
 entering extended mode
 **"./Additional Comments on our Code.tex"
 ("Additional Comments on our Code.tex"
@@ -249,39 +249,39 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 51.
+LaTeX Font Info:    Try loading font information for U+eus on input line 60.
 
-Underfull \hbox (badness 10000) in paragraph at lines 56--60
+("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\ueus.fd"
+File: ueus.fd 2013/01/14 v3.01 Euler Script
+)
+Underfull \hbox (badness 10000) in paragraph at lines 56--61
 
  []
 
 [3 <./images/P3.png (PNG copy)> <./images/P4.png (PNG copy)>]
-Underfull \hbox (badness 10000) in paragraph at lines 68--71
+Underfull \hbox (badness 10000) in paragraph at lines 69--72
 
  []
 
 [4] [5]
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 106.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 107.
 
 
-LaTeX Font Warning: Command \tiny invalid in math mode on input line 106.
+LaTeX Font Warning: Command \tiny invalid in math mode on input line 107.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 123--126
+Underfull \hbox (badness 10000) in paragraph at lines 124--127
 
  []
 
 [6]
-LaTeX Font Info:    Try loading font information for U+eus on input line 141.
- ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\ueus.fd"
-File: ueus.fd 2013/01/14 v3.01 Euler Script
-)
-Underfull \hbox (badness 10000) in paragraph at lines 136--142
+Underfull \hbox (badness 10000) in paragraph at lines 137--143
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 136--142
+Underfull \hbox (badness 10000) in paragraph at lines 137--143
 
  []
 
@@ -307,7 +307,7 @@ fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
 c/amsfonts/cm/cmti12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/euler/eusm10.pfb>
-Output written on "Additional Comments on our Code.pdf" (8 pages, 652359 bytes)
+Output written on "Additional Comments on our Code.pdf" (8 pages, 653179 bytes)
 .
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)

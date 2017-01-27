@@ -39,7 +39,7 @@ Examined by  \\[0.5cm]
 
 Faculty for math and computer science\\[0.5cm]
 University of Heidelberg \\[0.8cm]
-\includegraphics[scale=0.2]{hd-logo.svg} 
+\includegraphics[scale=0.2]{hd-logo.jpg} 
 \end{center}
 \end{titlepage}
 
@@ -53,6 +53,7 @@ Write a finite element code in your preferred programming language solving the b
 \end{align}
 Here, $\Omega = [0,1]^2$.
 \end{framed}
+First of all, we want to examine the given BVP. In order to produce meaningful results, we have to proof that a unique solution exists. Furthermore, this document will explain some of the specific formulars used for computation. These formulars depend heavily on the structure of the problem and can not be generalized.
 
 \section{Weak Formulation}
 In order to apply some of the results from the lecture, we need to derive the weak formulation of the given problem 
@@ -123,7 +124,22 @@ For the right-hand side, we have to look at the substitution formula for higher 
 
 \section{Error Analysis}
 
-In this section, we will discuss our expectations of the error and our method to compute the convergence order.
+In this section, we will discuss our expectations of the error and our method to compute the convergence order. In lecture, we had the following theorem\\
+\\
+\textbf{Theorem 4.29} \textit{Assume that the solution u of the given problem (5) satisfies
+the regularity condition $u \in V=H^1(\Omega) \cap H^{k+1}(\Omega)$ with $k \geq m$. Then, The error in the solution of the finite element method satisfies the following bound:}
+\[\|u-u_h\|_{m,\Omega}\leq ch^{k+1-m}|u|_{k+1,\Omega},\]
+\textit{where c is a positive constant}\\
+\\
+The analytical solution is smooth, this enables us to chose $k$ freely. We chose $V$ to be a subspace of $H^1(\Omega)$, therefore $m=1$. The estimate in theorem 4.29 still contains a constant $c$ and can not be used directly. We will revise the computation of a convergence order from last semesters lecture:\\
+Let $\alpha$ be the optimal exponent, such that equality holds
+\begin{align}
+\|u-u_h\|_{1,\Omega}&= ch^{\alpha}|u|_{k+1,\Omega} \\
+\|u-u_{\frac{h}{2}}\|_{1,\Omega}&= c\frac{h^\alpha}{2^\alpha}|u|_{k+1,\Omega}
+\end{align}
+\\
+Dividing (11) by (12) yields 
 
-
+\[\frac{\|u-u_h\|_{1,\Omega}}{\|u-u_{\frac{h}{2}}\|_{1,\Omega}}= 2^\alpha\]
+\[\Rightarrow  \alpha = \mbox{ln}\Big(\frac{\|u-u_h\|_{1,\Omega}}{\|u-u_{\frac{h}{2}}\|_{1,\Omega}}\Big)\cdot \mbox{ln}\Big(\frac{1}{2}\Big)\]
 \end{document}
