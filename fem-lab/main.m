@@ -5,8 +5,8 @@ function main()
     for n=3:3;
         
         % Initialize parameters mesh-size and polynomial degree
-        mesh_size=1/2;
-        pol_deg=3;
+        mesh_size=1/8;
+        pol_deg=1;
         % Initialize right hand side of strong formulation
         f = @(x,y) cos(x*pi).*cos(y*pi);
         % Initialize exact solution

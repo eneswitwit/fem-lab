@@ -71,7 +71,12 @@ function val=hf_eval_solution_vectorized(x,y,u,cell_matrix,vertex_matrix,SF)
         %Note, that the code above only converted the local node numbering to the global node numbering. It is clear, that two adjacent cells share global node points, which lie on the edge bewteen them. 
         %Therefore, we have to remove the duplicate nodes, since exactly one shape function correlates to one node
         [active_node,local_node,active_cell_vector]=hf_remove_duplicates(active_node,local_node,active_cell_vector);
-        hf_eval_poly_transformed(x,y,SF(local_node,:),mesh_size,vertex_matrix(cell_matrix(active_cell_vector,1),1),vertex_matrix(cell_matrix(active_cell_vector,1),2));
+        % We try to avoid any for loops, this is the reason why we went for this construction using the diagonal of a matrix.
+        % The rows will store the computations for each cell
+        % The columns will store the computations for each active shape function
+        % The diagonal of this matrix consists of the correct pairs of shape function and cell and we can use the inner product with the right entries of u
+        % If not for this construction, we would have had to loop over each entry of our active_node vector, evaluate a polynomial and multiply with a scalar.
+        % Since matrix/vector operations are optimized in octave, this approach is more efficient.
         val=u(active_node)'*diag(hf_eval_poly_transformed(x,y,SF(local_node,:),mesh_size,vertex_matrix(cell_matrix(active_cell_vector,1),1),vertex_matrix(cell_matrix(active_cell_vector,1),2)));
     endif
 
