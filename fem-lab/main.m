@@ -6,7 +6,7 @@ function main()
         
         % Initialize parameters mesh-size and polynomial degree
         mesh_size=1/8;
-        pol_deg=1;
+        pol_deg=2;
         % Initialize right hand side of strong formulation
         f = @(x,y) cos(x*pi).*cos(y*pi);
         % Initialize exact solution
@@ -48,7 +48,7 @@ function main()
         % error_runge will compute an estimation of the L2 Error
         %error_runge(0.2,pol_deg);
         % error_L2 computes the error, using the exact solution and the L2-norm
-        %error_L2(u,u_exact,10);
+        error_L2(u,u_exact,100);
         % ----------------------
        
         % overall runtime using 'tic' 'toc'

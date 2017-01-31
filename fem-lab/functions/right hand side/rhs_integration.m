@@ -6,7 +6,7 @@ function rhs = rhs_integration(Vertex,Cell,SF,f)
     %This function will give us the right hand side of the linear system
     
     % Initialize Gauss Quadratur
-    [sample_points,weights] = int_gauss_weights(10,0,1);
+    [sample_points,weights] = int_gauss_weights(50,0,1);
     % Useful computations for later use
     mesh_size=Vertex(2,1)-Vertex(1,1);
     pol_deg = sqrt(length(SF))-1;
