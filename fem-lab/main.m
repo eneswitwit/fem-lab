@@ -5,8 +5,8 @@ function main()
     for n=3:3;
         
         % Initialize parameters mesh-size and polynomial degree
-        mesh_size=1/8;
-        pol_deg=2;
+        mesh_size=1/16;
+        pol_deg=1;
         % Initialize right hand side of strong formulation
         f = @(x,y) cos(x*pi).*cos(y*pi);
         % Initialize exact solution
@@ -27,7 +27,9 @@ function main()
         disp("------------------Assembled global matrix------------------");
         
         % Initialize right hand side of our linear system
+        tic
         rhs=rhs_integration(Vertex,Cell,SF,f);
+        rhstime=toc
         disp("------------------Assembled right hand side------------------");
         
         % solve the linear system using ls_solve
@@ -48,7 +50,7 @@ function main()
         % error_runge will compute an estimation of the L2 Error
         %error_runge(0.2,pol_deg);
         % error_L2 computes the error, using the exact solution and the L2-norm
-        error_L2(u,u_exact,100);
+        error_L2(u,u_exact,10);
         % ----------------------
        
         % overall runtime using 'tic' 'toc'
