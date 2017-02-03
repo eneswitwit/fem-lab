@@ -1,6 +1,6 @@
 function rhs = rhs_integration(Vertex,Cell,SF,f)
 
-tic
+    %tic
     %Let cell be the matrix, which stores the vertices for each cell
     %Let vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
@@ -37,5 +37,5 @@ tic
     rhs=mesh_size^2*rhst';
     
     
-    old=toc
+    %old=toc
 endfunction
