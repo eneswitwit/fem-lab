@@ -12,8 +12,8 @@ function rhs = rhs_integration(Vertex,Cell,SF,f)
     % Useful computations for later use
     mesh_size=Vertex(2,1)-Vertex(1,1);
     pol_deg = sqrt(length(SF))-1;
-    cells_per_row=(1/mesh_size);
-    number_of_nodes=((pol_deg*cells_per_row)+1)^2;
+    cells_per_row=int32(1/mesh_size);
+    number_of_nodes=int32(((pol_deg*cells_per_row)+1)^2);
     
     % Each node on our mesh represents one basis function. 
     % This means there will be only a small number of cells, which are non-zero for any given integration over the product of the basis functions and the right hand side .
@@ -23,8 +23,8 @@ function rhs = rhs_integration(Vertex,Cell,SF,f)
         % Our function 'node_to_cell' will tell us for a given node, which shape function we have to evaluate on which cell.
         [active_cell,active_sf]=node_to_cells(i,mesh_size,pol_deg);
         for k=1:rows(active_cell)
-            active_cell_no=active_cell(k);
-            active_vertex=Vertex(Cell(active_cell_no,1),:);
+            active_cell_no = active_cell(k);
+            active_vertex = Vertex(Cell(active_cell_no),1),:);
             active_sf_no=active_sf(k);
             % This transformation is further explained in our documentation
             g =  @(x,y) f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)).*hf_eval_poly(x,y,SF(active_sf_no,:));

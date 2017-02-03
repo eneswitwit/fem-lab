@@ -23,7 +23,7 @@ function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
     
     % Initialize right hand side of our linear system
     %tic
-    rhs=rhs_integration(Vertex,Cell,SF,f);
+    rhs=rhs_integration_new(Vertex,Cell,SF,f);
     %rhstime=toc
     disp("------------------Assembled right hand side------------------");
     

@@ -24,7 +24,7 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
     for k=1:number_of_cells
         active_vertex=Vertex(Cell(k,1),:);
         g =  @(x,y) repmat(f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)),length(SF),1).*hf_eval_poly(x,y,SF);
-        rhs(Nodes(k,:))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
+        rhs(int32(Nodes(k,:)))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
     endfor
     
     rhs*=(mesh_size^2);
