@@ -1,6 +1,6 @@
 function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
     % Add all subfolders to working directory
-    addpath(genpath([pwd '/functions']))
+    add_fem_lab();
             
     % Initialize right hand side of strong formulation
     f = @(x,y) cos(x*pi).*cos(y*pi);
