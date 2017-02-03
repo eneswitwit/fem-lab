@@ -1,0 +1,1 @@
+function [mesh_size,pol_deg] = error_map()    % Add all subfolders to working directory    addpath(genpath([pwd '/functions']))    for mesh_size=1:100        for pol_deg = 1:5                        endfor    endforendfunction
