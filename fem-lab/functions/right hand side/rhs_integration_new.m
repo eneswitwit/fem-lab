@@ -7,13 +7,13 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
     %This function will give us the right hand side of the linear system
     
     % Initialize Gauss Quadratur
-    [sample_points,weights] = int_gauss_weights(10,0,1);
+    [sample_points,weights] = int_gauss_weights(5,0,1);
     % Useful computations for later use
     mesh_size=Vertex(2,1)-Vertex(1,1);
     pol_deg = sqrt(length(SF))-1;
     cells_per_row=(1/mesh_size);
     number_of_cells=cells_per_row^2;
-    number_of_nodes=(pol_deg*cells_per_row+1)^2
+    number_of_nodes=(pol_deg*cells_per_row+1)^2;
     
     % Initialize matrix "Nodes" wich contains the global node number for each cell
     Nodes=mesh_cell(mesh_size,pol_deg);
@@ -30,7 +30,7 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
         % we use the octave in-build function "repmat", since "f" shall be multiplied to every shape function
         g =  @(x,y) repmat(f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)),length(SF),1).*hf_eval_poly(x,y,SF);
         % "Nodes" will select the correct entries of the vector, we only need to add the vector-valued integral
-        rhs(Nodes(k,:))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
+        rhs(Nodes(int32(k),:))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
     endfor
     % The transformation formula requires to multiply with the jacobi determinant
     rhs*=(mesh_size^2);
