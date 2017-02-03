@@ -1,4 +1,7 @@
 function rhs = rhs_integration_new(Vertex,Cell,SF,f)
+
+    tic
+
     %Let cell be the matrix, which stores the vertices for each cell
     %Let vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
@@ -6,7 +9,7 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
     %This function will give us the right hand side of the linear system
     
     % Initialize Gauss Quadratur
-    [sample_points,weights] = int_gauss_weights(100,0,1);
+    [sample_points,weights] = int_gauss_weights(10,0,1);
     % Useful computations for later use
     mesh_size=Vertex(2,1)-Vertex(1,1);
     pol_deg = sqrt(length(SF))-1;
@@ -24,6 +27,8 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
         rhs(Nodes(k,:))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
     endfor
     
-    rhs=rhs*mesh_size^2;
+    rhs*=(mesh_size^2);
+    
+    new=toc
     
 endfunction
