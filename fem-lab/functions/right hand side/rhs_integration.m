@@ -1,15 +1,12 @@
 function rhs = rhs_integration(Vertex,Cell,SF,f)
-
-    %tic
-    %Let cell be the matrix, which stores the vertices for each cell
-    %Let vertex be the matrix, which stores the coordinates for each vertex
-    %Let SF be the matrix, containing the coefficients of the shape funtions
+    % Let cell be the matrix, which stores the vertices for each cell.
+    % Let vertex be the matrix, which stores the coordinates for each vertex.
+    % Let SF be the matrix, containing the coefficients of the shape funtions.
     
-    %This function will give us the right hand side of the linear system
-    
-    % Initialize Gauss Quadratur
+    % This function will give us the right hand side of the linear system.
+    % Initialize gauss quadratur.
     [sample_points,weights] = int_gauss_weights(10,0,1);
-    % Useful computations for later use
+    % Useful computations for later use.
     mesh_size=Vertex(2,1)-Vertex(1,1);
     pol_deg = sqrt(length(SF))-1;
     cells_per_row=int32(1/mesh_size);
