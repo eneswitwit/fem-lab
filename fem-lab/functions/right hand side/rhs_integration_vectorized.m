@@ -1,4 +1,4 @@
-function rhs = rhs_integration_new(Vertex,Cell,SF,f)
+function rhs = rhs_integration_vectorized(Vertex,Cell,SF,f)
     %Let Cell be the matrix, which stores the vertices for each cell
     %Let Vertex be the matrix, which stores the coordinates for each vertex
     %Let SF be the matrix, containing the coefficients of the shape funtions
