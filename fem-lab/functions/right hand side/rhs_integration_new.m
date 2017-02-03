@@ -30,7 +30,7 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
         % we use the octave in-build function "repmat", since "f" shall be multiplied to every shape function
         g =  @(x,y) repmat(f(mesh_size*x+active_vertex(1),mesh_size*y+active_vertex(2)),length(SF),1).*hf_eval_poly(x,y,SF);
         % "Nodes" will select the correct entries of the vector, we only need to add the vector-valued integral
-        rhs(Nodes(int32(k),:))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
+        rhs(int32(Nodes(int32(k),:)))+=int_gauss_vectorized_matrices(sample_points,weights,sample_points,weights,g);
     endfor
     % The transformation formula requires to multiply with the jacobi determinant
     rhs*=(mesh_size^2);
