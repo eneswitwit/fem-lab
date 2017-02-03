@@ -16,7 +16,7 @@ function rhs = rhs_integration_new(Vertex,Cell,SF,f)
     number_of_nodes=(pol_deg*cells_per_row+1)^2;
     
     % Initialize matrix "Nodes" wich contains the global node number for each cell
-    Nodes=mesh_cell(mesh_size,pol_deg);
+    Nodes=mesh_nodes(mesh_size,pol_deg);
     
     % Initialize right hand side vector
     rhs=zeros(number_of_nodes,1);
