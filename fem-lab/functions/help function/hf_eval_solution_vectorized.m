@@ -1,14 +1,14 @@
-function val=hf_eval_solution_vectorized(x,y,u,cell_matrix,vertex_matrix,SF)
+function val=hf_eval_solution_vectorized(x,y,u,Cell,Vertex,SF)
     %Let (x,y) be the point of evaluation,
     %Let u be the solution of the linear system
-    %Let cell_matrix be the matrix, wich stores the numbers of the four vertices of the i_th cell in the i_th row
-    %Let Vertex_matrix be the matrix, in which the coordinates of the i_th vertex are stored in the i_th row 
+    %Let Cell be the matrix, wich stores the numbers of the four vertices of the i_th cell in the i_th row
+    %Let Vertex be the matrix, in which the coordinates of the i_th vertex are stored in the i_th row 
     %Let pol_deg, be the polynomial degree of the shape functions on the edges of a cell
     %Let SF be the matrix, which stores the coefficients of the shapefunctions on our reference square. Each row corresponds to one shapefunction
     
     %Calculate useful measurements, so we don't have to pass it as a parameter
     pol_deg=sqrt(rows(SF))-1;
-    mesh_size=vertex_matrix(2,1)-vertex_matrix(1,1);
+    mesh_size=Vertex(2,1)-Vertex(1,1);
     cells_per_row=(1/mesh_size);
     nodes_per_row=(pol_deg*cells_per_row)+1;
     nodes_per_edge=pol_deg+1;
@@ -77,7 +77,7 @@ function val=hf_eval_solution_vectorized(x,y,u,cell_matrix,vertex_matrix,SF)
         % The diagonal of this matrix consists of the correct pairs of shape function and cell and we can use the inner product with the right entries of u
         % If not for this construction, we would have had to loop over each entry of our active_node vector, evaluate a polynomial and multiply with a scalar.
         % Since matrix/vector operations are optimized in octave, this approach is more efficient.
-        val=u(int32(active_node))'*diag(hf_eval_poly_transformed(x,y,SF(int32(local_node),:),mesh_size,vertex_matrix(cell_matrix(int32(active_cell_vector),1),1),vertex_matrix(cell_matrix(int32(active_cell_vector),1),2)));
+        val=u(int32(active_node))'*diag(hf_eval_poly_transformed(x,y,SF(int32(local_node),:),mesh_size,Vertex(Cell(int32(active_cell_vector),1),1),Vertex(Cell(int32(active_cell_vector),1),2)));
     endif
 
 
