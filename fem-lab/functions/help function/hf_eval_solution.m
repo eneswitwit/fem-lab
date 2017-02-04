@@ -1,13 +1,13 @@
-function val=hf_eval_solution(x,y,u,cell_matrix,vertex_matrix,SF)
+function val=hf_eval_solution(x,y,u,Cell,Vertex,SF)
     %Let (x,y) be the point of evaluation,
     %Let u be the solution of the linear system
-    %Let cell_matrix be the matrix, wich stores the numbers of the four vertices of the i_th cell in the i_th row
-    %Let Vertex_matrix be the matrix, in which the coordinates of the i_th vertex are stored in the i_th row 
+    %Let Cell be the matrix, wich stores the numbers of the four vertices of the i_th cell in the i_th row
+    %Let Vertex be the matrix, in which the coordinates of the i_th vertex are stored in the i_th row 
     %Let pol_deg, be the polynomial degree of the shape functions on the edges of a cell
     %Let SF be the matrix, which stores the coefficients of the shapefunctions on our reference square. Each row corresponds to one shapefunction
     
     %Calculate useful measurements, so we don't have to pass it as a parameter
-    mesh_size=vertex_matrix(2,1)-vertex_matrix(1,1);
+    mesh_size=Vertex(2,1)-Vertex(1,1);
     pol_deg=sqrt(rows(SF))-1;
     cells_per_row=(1/mesh_size);
     nodes_per_row=(pol_deg*cells_per_row)+1;
@@ -74,7 +74,7 @@ function val=hf_eval_solution(x,y,u,cell_matrix,vertex_matrix,SF)
         [active_node,local_node,active_cell_vector]=hf_remove_duplicates(active_node,local_node,active_cell_vector);
         for i=1:length(active_node)
             %Our matrix SF stores the coefficients of the shape functions. These are defined on our reference cell, and therefore, have to be transformed to fulfil their purpose as basis functions for our space.
-            add=u(active_node(i))*hf_eval_poly_transformed(x,y,SF(local_node(i),:),mesh_size,vertex_matrix(cell_matrix(active_cell_vector(i),1),1),vertex_matrix(cell_matrix(active_cell_vector(i),1),2));
+            add=u(active_node(i))*hf_eval_poly_transformed(x,y,SF(local_node(i),:),mesh_size,Vertex(Cell(active_cell_vector(i),1),1),Vertex(Cell(active_cell_vector(i),1),2));
             val+=add;
         endfor
     endif
