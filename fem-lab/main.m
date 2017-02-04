@@ -36,7 +36,7 @@ function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg 
     fflush(stdout);
     
     % hf_eval_solution is used to evaluate the approximation, given the coefficients u_coeff.
-    u=@(x,y) hf_eval_solution(x,y,u_coeff,Cell,Vertex,SF);
+    u=@(x,y) hf_eval_solution_vectorized(x,y,u_coeff,Cell,Vertex,SF);
     
     % ------------------------------------------------------------------
         
