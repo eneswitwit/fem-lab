@@ -1,4 +1,4 @@
-function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
+function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg = 2)
     % Add all subfolders to working directory.
     add_fem_lab();
             
@@ -49,6 +49,5 @@ function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
     % error_L2 computes the error, using the exact solution and the L2-norm
     error_L2 = error_L2(u,u_exact,10);
     % ----------------------------
-        
-    
+          
 endfunction

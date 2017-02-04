@@ -1,4 +1,4 @@
-function [x0] = ls_cg(A,b,x0)
+function [x0, r0] = ls_cg(A,b,x0)
     count=1;
     
     r0=b-A*x0;
