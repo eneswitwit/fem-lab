@@ -14,8 +14,8 @@ function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg 
     [Vertex,Cell]=mesh_generate(mesh_size);
     SF=sf_generate(pol_deg);
     disp("---------------   Start FEM");
-    disp(["---------------   Polyonmial Degree " num2str(pol_deg)]);
-    disp(["---------------   Mesh Size 1/" num2str(1/mesh_size)]);  
+    disp(["---------------   Polyonmial degree " num2str(pol_deg)]);
+    disp(["---------------   Mesh size 1/" num2str(1/mesh_size)]);  
     fflush(stdout);  
     % ------------------------ FEM -------------------------------
     % sm_assemble_local computes the local stiffness matrix. In our case,the local stiffness matrix looks the same for every cell.
@@ -49,6 +49,10 @@ function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg 
     % -------------------------
            
     % ------ Error Analysis ------
+    % A posteriori error estimator
+    error_runge = error_runge(mesh_size,pol_deg,u_coeff);
+    disp(['---------------   Estimated L2 error: ' num2str(error_runge)]);
+    fflush(stdout);
     % error_L2 computes the error, using the exact solution and the L2-norm
     error_L2 = error_L2(u,u_exact,10);
     disp(['---------------   L2 error: ' num2str(error_L2)]);
