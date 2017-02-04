@@ -117,6 +117,8 @@ For the right-hand side, we have to look at the substitution formula for higher 
 \begin{align*}
 \int_{\Omega}f(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x}&=\sum_{T\in\mathscr{T}_h} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
 													&=\sum_{T\in\mathscr{T}_i} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
+\end{align*}
+\begin{align*}
 													&=\sum_{T\in\mathscr{T}_i} \int_Tf(\bm{x})p^{(T)}_{i^{(T)}}(\bm{x})\ \mbox{d}\bm{x} \\
 													&=\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(F^{(T)}(\bm{\hat x})\hat p_{i^{(T)}}(\bm{\hat x})|\mbox{det}(J)|\ \mbox{d}\bm{\hat x} \\
 													&=h^2\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(h\bm{\hat x}+v^{(T)}_1)\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x}						
@@ -141,5 +143,5 @@ Let $k$ be the polynomial degree, assume that the equality holds
 Dividing (11) by (12) yields 
 
 \[\frac{\|u-u_h\|_{1,\Omega}}{\|u-u_{\frac{h}{2}}\|_{1,\Omega}}= 2^{k+1}\]
-\[\Rightarrow  k = \mbox{ln}\Big(\frac{\|u-u_h\|_{1,\Omega}}{\|u-u_{\frac{h}{2}}\|_{1,\Omega}}\Big)\cdot \mbox{ln}\Big(\frac{1}{2}\Big)-1\]
+This is the convergence we would like to see. Suppose we use polynomials of degree 1. Using half the mesh size should reduce the error by a factor of 4.
 \end{document}
