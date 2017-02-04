@@ -1,4 +1,4 @@
-function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
+function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg = 2)
     % Add all subfolders to working directory.
     add_fem_lab();
             
@@ -18,8 +18,8 @@ function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
     % sm_assemble_local computes the local stiffness matrix. In our case,the local stiffness matrix looks the same for every cell.
     SM_local=sm_assemble_local_vectorized(mesh_size,SF);
     % sm_assemble_global will give the global stiffness matrix
-    SM=sm_assemble_global(mesh_size,SF,SM_local);
-    disp("------------------Assembled global matrix------------------");
+    SM=sm_assemble_global(mesh_size,pol_deg,SM_local);
+    disp("------------------Assembled global matrix--------------------");
     fflush(stdout);
     
     % Initialize right hand side of our linear system.
@@ -29,7 +29,7 @@ function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
     
     % Solve the linear system,
     u_coeff = ls_solve(SM,rhs);
-    disp("------------------Solved linear system------------------");
+    disp("------------------Solved linear system-----------------------");
     fflush(stdout);
     
     % hf_eval_solution is used to evaluate the approximation, given the coefficients u_coeff.
@@ -48,7 +48,8 @@ function [error_L2 , overall_runtime] = main(mesh_size = 1/4 , pol_deg = 2)
     % ------ Error Analysis ------
     % error_L2 computes the error, using the exact solution and the L2-norm
     error_L2 = error_L2(u,u_exact,10);
+    disp(['------------------L2 error: ' num2str(error_L2) '-----------------------']);
+    fflush(stdout);
     % ----------------------------
-        
-    
+          
 endfunction

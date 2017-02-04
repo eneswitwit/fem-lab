@@ -67,7 +67,8 @@ Key to this operation is the mapping $\rho$. Our function \textit{mesh\_nodes} w
 
 \section{Right Hand Side}
 The linear system is still missing its right hand side. We already discussed the computation of it in the 'Theoretical Construct', Chapter 'Integrals and Transformations'. The function \textit{rhs\_integration} will compute the right hand side. \\
-This function works in a similar fashion to the assembly of the global stiffness matrix. Given a cell, this function will integrate over every shape function at once, the function \textit{mesh\_nodes} will add the resulting vector at the correct spot. We use octave's build-in function \textit{repmat} to multiplay our rigth hand side $f$ to every entry of \textit{hf\_eval\_poly}. 
+This function works in a similar fashion to the assembly of the global stiffness matrix. Given a cell, this function will integrate over every shape function at once, the function \textit{mesh\_nodes} will add the resulting vector at the correct spot. We use octave's built-in function \textit{repmat} to multiplay our rigth hand side $f$ to every entry of \textit{hf\_eval\_poly}. The function will now be compatible with our gauss quadrature function for matrix/vector valued functions.
+
 \section{Linear Solvers}
 The global stiffness matrix will be sparse, due to the way we chose the basis functions (zero on the vast majority of the cells). The prefered solvers for linear systems with sparse matrices are iterative solvers. We implemented two common algorithms, namely the \textit{generalized minimal residual method} and the \textit{conjugate gradient method}. 
 We are left with a coefficient vector $u$. We will get our solution, by building the linear combination of the basis ${\phi_i}$ with $u$: 
@@ -98,7 +99,7 @@ Normaly, you would want to evaluate a polynomial $p$ only at a single point $(x,
 \textit{Gauss Quadrature}\\ \\
 Given the sample points $(x_1,...,x_n)^T$ and weights $(w_1,...,w_n)^T$, the gauss quadrature of a function $f$ in 2-D is given by
 \[\sum_{i,j} w_i w_j f(x_i,x_j)\]
-Instead of using for-loops, we use Octave's build-in function \textit{meshgrid} to create rank one matrices $W_1,W_2$ for the weigths $w_i$ and $X,Y$ for sample points $x_i$. Evaluating $f(X,Y)$ will create the matrix 
+Instead of using for-loops, we use Octave's built-in function \textit{meshgrid} to create rank one matrices $W_1,W_2$ for the weigths $w_i$ and $X,Y$ for sample points $x_i$. Evaluating $f(X,Y)$ will create the matrix 
 \[\begin{pmatrix} f(x_1,x_1) &\ f(x_1,x_2) &\ \cdots &\ f(x_1,x_n) \\
 \vdots &\ \vdots &\ \ddots &\ \vdots \\ 
 f(x_n,x_1) &\ f(x_n,x_2) &\ \cdots &\ f(x_n,x_n) \end{pmatrix} \]
@@ -146,5 +147,23 @@ Where $\bar{A_i}$ is the sum of the entries of the $i$-th row of $A$. We can now
                 0 &\ 0 &\ 1 \\
                 0 &\ 0 &\ 1 \\
                 0 &\ 0 &\ 1 \end{pmatrix} = \begin{pmatrix} A^* &\ C^* &\ E^* \\ B^* &\ D^* &\ F^* \end{pmatrix} \]
-Where $A^*$ is the desired sum of the submatrix $A$. Transposing this matrix yields the succesfull quadrature.
+Where $A^*$ is the desired sum of the submatrix $A$. Transposing this matrix yields the succesfull quadrature.\\
+\\
+\textit{Vectorization of sm\_local\_assembly}\\ \\
+Let $p_1,...,p_n$ our shape function, which are defined on our reference square. The local stiffness matrix $SM\_local$ consists of the bilinear form of two shape functions
+\[SM\_local_{i j}=a(p_i,p_j)\]
+As usual, we want to compute the integral at once, the approach using rank one matrices comes to mind. Let $P_i$ be the matrix, which store the values f the shape function $p_i$ at the sample points. We would want to have terms of the form
+\begin{equation} \begin{pmatrix} P_1.*P_1 &\ \cdots &\ P_1.*P_n \\
+				   \vdots  &\ \ddots &\ \vdots \\
+				   P_n.*P_1 &\ \cdots &\ P_n.*P_n \end{pmatrix} \end{equation}
+where the operator "$.*$" means Octave's built-in component-wise multiplication. The vector $(P_1,...,P_n)^T$ is easily obtained through \textit{hf\_eval\_poly} as already said. Using \textit{repmat}, we can get the matrix
+\begin{equation}\begin{pmatrix} P_1 &\ \cdots &\ P_1 \\
+				   P_2 &\ \cdots &\ P_2 \\
+				   \vdots &\ \vdots &\ \vdots \\ 
+                   P_n &\ \cdots &\ P_n \end{pmatrix}\end{equation}
+very easily. The other part of the "pseudo rank one" matrix is obtained by "cheating": We can get the transposed matrix $P_1^T$ by swapping the arguments $x$ and $y$ in our evaluation function of the polynomials. This leaves us with the matrix in (3), but each $P_i$ will be transposed. Transposing the whole matrix will now yield the matrix
+\begin{equation}\begin{pmatrix} P_1 &\ P_2 &\ \cdots &\ P_n \\
+				   \vdots &\ \vdots &\ \vdots &\ \vdots \\ 
+                   P_1 &\ P_2 &\ \cdots &\ P_n \end{pmatrix}\end{equation}
+The matrices from (3) and (4) can now be multiplied component-wise to recieve (2). The same steps can be taken for the derivatives of the polynomials, the exact computations are explained in detail in our theoretical analysis. The function is now ready to be integrated by our gauss quadrature.
 \end{document}
