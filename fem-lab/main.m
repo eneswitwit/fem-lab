@@ -18,7 +18,7 @@ function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg 
     % sm_assemble_local computes the local stiffness matrix. In our case,the local stiffness matrix looks the same for every cell.
     SM_local=sm_assemble_local_vectorized(mesh_size,SF);
     % sm_assemble_global will give the global stiffness matrix
-    SM=sm_assemble_global(mesh_size,SF,SM_local);
+    SM=sm_assemble_global(mesh_size,pol_deg,SM_local);
     disp("------------------Assembled global matrix------------------");
     fflush(stdout);
     
