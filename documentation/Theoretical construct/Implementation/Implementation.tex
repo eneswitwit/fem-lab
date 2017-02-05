@@ -65,21 +65,15 @@ Remember, that we do not actually have the basis functions $\phi_i$ at hand, sin
 The idea behind \textit{hf\_eval\_solution} is to find the indices of the basis functions, that do not vanish at a given point $(x,y)$. Similar to the calculation of the right hand side, we will need to know which shape function should be evaluated at which cell. Additionally, we need to know to which entry of the coefficient vector $u$ the computation correlates.\\
 In the special case, that $(x,y)$ lies on a node, the function will return the corresponding entry of $u_h$.If not, \textit{hf\_eval\_solution} starts searching for adjacent cells to the given point $(x,y)$, at which we want to evaluate our solution. Once we have the numbers of the active cells, we want to know, which nodes are located on these cells. We will store the local and the global number of the node. This leaves us with a matrix with rows consisting of the local node number, the corresponding global node number and the cell, on which the node lies. If a node lies on an edge between two cells, only one cell will be stored, the other one will be ommited. It remains to evaluate the correct shapefunction over the correct cell and multiply with the corresponding entry of $u_h$.
 
-\section{Presentation our results}
-Our function \textit{m\_plot\_solution} will create three plots:
+\section{Presentation of our results}
 \begin{itemize}
-\item The analytical solution
-\item The right hand side of the strong formulation (to show, that it is a multiple of the solution)
-\item The approximation, using \textit{hf\_eval\_solution} and the coefficient vector $u_h$
+\item Our function \textit{m\_plot\_solution} will create three plots: The analytical solution. The right hand side of the strong formulation (to show, that it is a multiple of the solution). The approximation, using \textit{hf\_eval\_solution} and the coefficient vector $u_h$
+\item Our functions \textit{hf\_vtk} and \textit{m\_plot\_paraview} will create .vtk files and .vtk file series for simulation investigations.
+\item Our function \textit{linear\_solver\_analytics} will compare three linear solvers, namely GMRES, CG and MINRES. More over it will plot the accuracy and the runtime for
+these solvers for varying mesh sizes.
+\item Our function \textit{error\_map} will print out the L2 errors for varying mesh size and polynomial degree into a table.
+\item Our function \textit{error\_runge\_evaluation} will show the accuracy of our a posteriori error indicator.
 \end{itemize}
-
-ParaView
-
-Linear solver
-
-Runtime 
-
-Error map
 
 \section{Runtime optimization}
 This section will highlight some function, that were programmed in a very specific way to suit our needs. Since matrix and vector operations are optimized in Octave, we avoided for-loops with many iterations and tried utilizing matrix or vector operations.\\ \\

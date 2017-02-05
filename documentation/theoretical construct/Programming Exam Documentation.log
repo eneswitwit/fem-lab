@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.4)  5 FEB 2017 12:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2016.2.4)  5 FEB 2017 13:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -368,42 +368,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--53
  []
 
 [13] [14]
-Underfull \hbox (badness 10000) in paragraph at lines 85--88
+Underfull \hbox (badness 10000) in paragraph at lines 79--82
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--88
+Underfull \hbox (badness 10000) in paragraph at lines 79--82
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--88
+Underfull \hbox (badness 10000) in paragraph at lines 79--82
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 85--88
+Underfull \hbox (badness 10000) in paragraph at lines 79--82
 
  []
 
 [15] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 89--91
+Underfull \hbox (badness 10000) in paragraph at lines 83--85
 
  []
 
 [17]
-Overfull \hbox (36.9189pt too wide) detected at line 139
+Overfull \hbox (36.9189pt too wide) detected at line 133
 [] [] \OT1/cmr/m/n/12 = []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--144
+Underfull \hbox (badness 10000) in paragraph at lines 133--138
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 139--144
+Underfull \hbox (badness 10000) in paragraph at lines 133--138
 
  []
 
@@ -436,7 +436,7 @@ amsfonts/cm/cmsy6.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/am
 sfonts/cm/cmsy8.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmti12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfo
 nts/euler/eusm10.pfb>
-Output written on "Programming Exam Documentation.pdf" (21 pages, 1025482 bytes
+Output written on "Programming Exam Documentation.pdf" (21 pages, 1026199 bytes
 ).
 PDF statistics:
  139 PDF objects out of 1000 (max. 8388607)

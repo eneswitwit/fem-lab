@@ -15,6 +15,6 @@
 \contentsline {section}{\numberline {2.4}Right hand side}{14}
 \contentsline {section}{\numberline {2.5}Linear solvers}{14}
 \contentsline {section}{\numberline {2.6}Evaluation of the solution}{14}
-\contentsline {section}{\numberline {2.7}Presentation our results}{15}
+\contentsline {section}{\numberline {2.7}Presentation of our results}{15}
 \contentsline {section}{\numberline {2.8}Runtime optimization}{15}
 \contentsline {chapter}{\numberline {3}Results}{20}
