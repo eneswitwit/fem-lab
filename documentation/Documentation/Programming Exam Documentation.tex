@@ -185,11 +185,14 @@ This is the convergence we would like to see. Suppose we use polynomials of degr
 % Results
 \chapter[Results]{Result} 
 \section{Linear solver}
-We can see in the following figure that MINRES and GMRES are the favored linear solver we should use. Also we can obtain the information that for mesh size $1/100$ GMRES shows his benefits, where MINRES gets weaker. Due this empirical investigation we programed our function \textit{ls\_solve} in such a way that for linear systems bigger than
+We can see in the following figure that MINRES and GMRES are the favored linear solver we should use. Also we can obtain the information that for mesh size $1/100$ GMRES shows his benefits, where MINRES gets weaker. Due to this empirical investigation we programed our function \textit{ls\_solve} in such a way that for linear systems bigger than
 1000000 entries (which is the equivalent to mesh size 1/100) we want to use GMRES, otherwise MINRES.
 \\
-\includegraphics[scale=0.7]{./linear_solver_error_behaviour}
+\includegraphics[scale=0.7]{./linear_solver_error_behaviour} 
+\newpage
+In runtime related analytics the three solver do not differ greatly.  \\
 \includegraphics[scale=0.7]{./linear_solver_runtime}
+\newpage
 \section{A posteriori error estimator}
 Our empirical investigations have shown, that the runge error indicator is reliable. In the following figure we can see the a posteriori error estimator for polynomial degree 1 for different mesh sizes. \\
 \includegraphics[scale=0.7]{./error_runge}
