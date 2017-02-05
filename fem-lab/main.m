@@ -1,4 +1,4 @@
-function [error_L2 , overall_runtime, u_coeff] = main(mesh_size = 1/4 , pol_deg = 2)
+function [error_L2 , overall_runtime, u_coeff, error_runge] = main(mesh_size = 1/4 , pol_deg = 2)
     % Add all subfolders to working directory.
     add_fem_lab();
             
