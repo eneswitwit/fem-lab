@@ -1,11 +1,15 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage[mathscr]{euscript}
 \usepackage{framed}
 \usepackage{graphicx}
+\usepackage{titlesec}
+
 
 \begin{document}
+
+\titleformat{\chapter}[block]{\bf\huge}{\thechapter}{2pc}{}
 
 \title{Programming Exam Documentation}
 
@@ -42,7 +46,8 @@ University of Heidelberg \\[0.8cm]
 \includegraphics[scale=0.2]{hd-logo.jpg} 
 \end{center}
 \end{titlepage}
-
+\tableofcontents
+\newpage
 \section{Introduction}
 The programming exam states the following task.
 \begin{framed}
@@ -55,7 +60,19 @@ Here, $\Omega = [0,1]^2$.
 \end{framed}
 First of all, we want to examine the given BVP. In order to produce meaningful results, we have to proof that a unique solution exists. Furthermore, this document will explain some of the specific formulars used for computation. These formulars depend heavily on the structure of the problem and can not be generalized.
 
-\section{Weak Formulation}
+In the second chapter we want to give details and explanation of our implementation. We will discuss relevant functions and give an overview of our programm.
+
+
+% THEORTICAL CONSTRUCT
+
+
+\chapter[Theortical construct]{Theory} 
+
+
+
+
+\newpage
+\section{Weak formulation}
 In order to apply some of the results from the lecture, we need to derive the weak formulation of the given problem 
 \begin{align}
 \mbox{Find } u\in C^2(\Omega)\mbox{ :}-\Delta u+u &= \cos(\pi x)\cos(\pi y) &&\mbox{in } \Omega \\
@@ -70,7 +87,7 @@ From now on, we will denote the left hand side of the equation by $a(u,v)$ and t
 \mbox{Find }u\in H^1(\Omega) \mbox{ :} \quad a(u,v)=F(v)\quad \forall v \in H^1(\Omega)
 \end{equation}
 
-\section{Existence and Uniqueness of a Solution}
+\section{Existence and uniqueness of a solution}
 
 We can already see, that our bilinear form $a(\cdotp ,\cdot)$ is the inner product associated with the norm on our function space $H^1(\Omega)$. We want to use the Riesz representation theorem to prove existence and uniqueness of a solution. In order to do so, it remains to show that our functional $F(\cdot)$ is linear and bounded. Linearity follows from the properties of integration. Using Hoelder's inequality, we show that
 \begin{align*}
@@ -81,7 +98,7 @@ F(u)&=\|fu\|_{L^1(\Omega)}\\
 \end{align*}
 where c depends on our domain $\Omega$. For our case, we have $\Omega=[0,1]^2$, in particular this means that $\Omega$ is bounded and our constant $c$ is finite. Therefore, $F(\cdot)$ is a bounded, linear functional and we can apply the Riesz representation theorem.
 
-\section{Finding the Analytical Solution}
+\section{Analytical solution}
 
 Now that we know that a unique solution exists, we want to actually compute it. We will use the ansatz $u=C\cos(\pi x)\cos(\pi y)$, with its gradient $\Delta u=2\pi^2 u$. Inserting in (1) gives us
 \begin{equation}
@@ -93,7 +110,7 @@ Now that we know that a unique solution exists, we want to actually compute it. 
 \end{align}
 This leaves us with the solution $u=\frac{1}{1-2\pi^2}\cos(\pi x)\cos(\pi y)$.
 
-\section{Integrals and Transformations}
+\section{Integrals and transformations}
 
 The transformations we have to use for our FEM-code are very simple, since our mesh will be generated uniformly. Ultimately, we will only have to scale and displace our reference cell. We decided, that we will hard-code this property, since it will heavily simplifiy the computation of the local stiffness-matrices and the right-hand-side of the linear system, as we will see in brief.
 \\ \\
@@ -124,10 +141,24 @@ For the right-hand side, we have to look at the substitution formula for higher 
 													&=h^2\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(h\bm{\hat x}+v^{(T)}_1)\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x}						
 \end{align*}
 
-\section{Error Analysis}
+\section{Linear solver}
 
-In this section, we will discuss our expectations of the error and our method to compute the convergence order. In lecture, we had the following theorem\\
+\section{Error analysis}
+
+In this section, we will discuss our expectations of the error and our method to compute the convergence order. \\
+
+\subsection{A posteriori}
+For the estimation of the error we are going to implement an error control method by C. Runge. It seemed very appropriate to use a heuristic rule, which proved itself to be sufficiently good and most importantly easy and cheap for our case.\\
+
+\textbf{Heuristic rule of Runge}
+\textit{If the difference between two approximate solutions computed on the mesh with mesh size $h$ and mesh size $h/2$ has become small, then both approximated solutions are probably close to the exact solution}
 \\
+
+We are going to use this heuristic rule to compute $ | u_{h} - u_{h/2} | $, which we will view as a certain a posteriori error indicator. Unfortunatley it will not have the property modern a posteriori error indicators have, which is to be a upper bound. Still with empirical investigations it seems that our error indicator is quite well.
+
+
+\subsection{A priori}
+In lecture, we had the following theorem \\
 \textbf{Theorem 4.29} \textit{Assume that the solution u of the given problem (5) satisfies
 the regularity condition $u \in V=H^1(\Omega) \cap H^{k+1}(\Omega)$ with $k \geq m$. Then, The error in the solution of the finite element method satisfies the following bound:}
 \[\|u-u_h\|_{m,\Omega}\leq ch^{k+1-m}|u|_{k,\Omega},\]
@@ -144,4 +175,17 @@ Dividing (11) by (12) yields
 
 \[\frac{\|u-u_h\|_{1,\Omega}}{\|u-u_{\frac{h}{2}}\|_{1,\Omega}}= 2^{k+1}\]
 This is the convergence we would like to see. Suppose we use polynomials of degree 1. Using half the mesh size should reduce the error by a factor of 4.
+
+
+% IMPLEMENTATION
+\chapter[Implementation]{Implementation} 
+
+\newpage
+
+
+\input{./Implementation/Implementation}
+
+% Results
+\chapter[Results]{Result} 
+
 \end{document}
