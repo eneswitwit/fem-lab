@@ -1,0 +1,22 @@
+\contentsline {section}{\numberline {0.1}Introduction}{2}
+\contentsline {chapter}{\numberline {1}Theortical construct}{3}
+\contentsline {section}{\numberline {1.1}Weak formulation}{4}
+\contentsline {section}{\numberline {1.2}Existence and uniqueness of a solution}{4}
+\contentsline {section}{\numberline {1.3}Analytical solution}{5}
+\contentsline {section}{\numberline {1.4}Integrals and transformations}{5}
+\contentsline {section}{\numberline {1.5}Error analysis}{6}
+\contentsline {subsection}{\numberline {1.5.1}A posteriori}{6}
+\contentsline {subsection}{\numberline {1.5.2}A priori}{7}
+\contentsline {chapter}{\numberline {2}Implementation}{8}
+\contentsline {section}{\numberline {2.1}Mesh}{9}
+\contentsline {section}{\numberline {2.2}Shape functions}{9}
+\contentsline {section}{\numberline {2.3}Stiffness matrix}{11}
+\contentsline {section}{\numberline {2.4}Right hand side}{13}
+\contentsline {section}{\numberline {2.5}Linear solvers}{13}
+\contentsline {section}{\numberline {2.6}Evaluation of the solution}{13}
+\contentsline {section}{\numberline {2.7}Presentation of our results}{14}
+\contentsline {section}{\numberline {2.8}Runtime optimization}{14}
+\contentsline {chapter}{\numberline {3}Results}{18}
+\contentsline {section}{\numberline {3.1}Correctness of our program}{18}
+\contentsline {section}{\numberline {3.2}Linear solver}{18}
+\contentsline {section}{\numberline {3.3}A posteriori error estimator}{21}

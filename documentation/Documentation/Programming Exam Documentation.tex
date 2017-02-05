@@ -134,14 +134,10 @@ For the right-hand side, we have to look at the substitution formula for higher 
 \begin{align*}
 \int_{\Omega}f(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x}&=\sum_{T\in\mathscr{T}_h} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
 													&=\sum_{T\in\mathscr{T}_i} \int_Tf(\bm{x})\phi_i(\bm{x})\ \mbox{d}\bm{x} \\
-\end{align*}
-\begin{align*}
 													&=\sum_{T\in\mathscr{T}_i} \int_Tf(\bm{x})p^{(T)}_{i^{(T)}}(\bm{x})\ \mbox{d}\bm{x} \\
 													&=\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(F^{(T)}(\bm{\hat x})\hat p_{i^{(T)}}(\bm{\hat x})|\mbox{det}(J)|\ \mbox{d}\bm{\hat x} \\
 													&=h^2\sum_{T\in\mathscr{T}_i} \int_{\hat T}f(h\bm{\hat x}+v^{(T)}_1)\hat p_{i^{(T)}}(\bm{\hat x})\ \mbox{d}\bm{\hat x}						
 \end{align*}
-
-\section{Linear solver}
 
 \section{Error analysis}
 
@@ -185,7 +181,8 @@ This is the convergence we would like to see. Suppose we use polynomials of degr
 % Results
 \chapter[Results]{Result} 
 \section{Correctness of our program}
-
+We implemented function, which tests for correctness. We hard coded every component of a FEM solver for simple parameters, polynomial degree one and mesh size one half. We will test every component (global stifness assembly, right hand side ...), compare results and return a "1" if correct and a "0" if incorrect.\\ \\
+We also provide a sheet with the L2-error for varying mesh sizes and polynomial degrees. The expected convergece order can be seen clearly for most of our computations.
 \section{Linear solver}
 We can see in the following figure that MINRES and GMRES are the favored linear solver we should use. Also we can obtain the information that for mesh size $1/100$ GMRES shows his benefits, where MINRES gets weaker. Due to this empirical investigation we programed our function \textit{ls\_solve} in such a way that for linear systems bigger than
 1000000 entries (which is the equivalent to mesh size 1/100) we want to use GMRES, otherwise MINRES.

@@ -79,7 +79,6 @@ these solvers for varying mesh sizes.
 This section will highlight some function, that were programmed in a very specific way to suit our needs. Since matrix and vector operations are optimized in Octave, we avoided for-loops with many iterations and tried utilizing matrix or vector operations.\\ \\
 \textit{Evaluation of a Polynomial}\\ \\
 Normaly, you would want to evaluate a polynomial $p$ only at a single point $(x,y)\in\!R$. For our problem, it will be benificial to multiple polynomials at once. We designed \textit{hf\_eval\_poly} in a way, that we can have the whole coefficient matrix $SF$ as an input, and therefore get a vector with a value for each shape function as an output. To utilize Octave's full potential, we also wanted to be able to have two matrices as inputs, instead of only single points. This will create a matrix, containing a column of blockmatrices. Each blockmatrix will resemble one shape function, evaluated at the given set of points by the two matrices.\\ \\
-\newpage
 \textit{Gauss quadrature}\\ \\
 Given the sample points $(x_1,...,x_n)^T$ and weights $(w_1,...,w_n)^T$, the gauss quadrature of a function $f$ in 2-D is given by
 \[\sum_{i,j} w_i w_j f(x_i,x_j)\]
