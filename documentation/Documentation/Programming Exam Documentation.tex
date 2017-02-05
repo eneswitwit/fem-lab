@@ -184,6 +184,8 @@ This is the convergence we would like to see. Suppose we use polynomials of degr
 
 % Results
 \chapter[Results]{Result} 
+\section{Correctness of our program}
+
 \section{Linear solver}
 We can see in the following figure that MINRES and GMRES are the favored linear solver we should use. Also we can obtain the information that for mesh size $1/100$ GMRES shows his benefits, where MINRES gets weaker. Due to this empirical investigation we programed our function \textit{ls\_solve} in such a way that for linear systems bigger than
 1000000 entries (which is the equivalent to mesh size 1/100) we want to use GMRES, otherwise MINRES.
