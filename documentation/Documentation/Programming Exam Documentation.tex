@@ -154,7 +154,7 @@ For the estimation of the error we are going to implement an error control metho
 \textit{If the difference between two approximate solutions computed on the mesh with mesh size $h$ and mesh size $h/2$ has become small, then both approximated solutions are probably close to the exact solution}
 \\
 
-We are going to use this heuristic rule to compute $ | u_{h} - u_{h/2} | $, which we will view as a certain a posteriori error indicator. Due empirical investigations we will see that this indicator is quite well.
+We are going to use this heuristic rule to compute $ | u_{h} - u_{h/2} | $, which we will view as a certain a posteriori error indicator. Due to empirical investigations we will see that this indicator is quite well.
 
 
 \subsection{A priori}
@@ -184,5 +184,13 @@ This is the convergence we would like to see. Suppose we use polynomials of degr
 
 % Results
 \chapter[Results]{Result} 
-
+\section{Linear solver}
+We can see in the following figure that MINRES and GMRES are the favored linear solver we should use. Also we can obtain the information that for mesh size $1/100$ GMRES shows his benefits, where MINRES gets weaker. Due this empirical investigation we programed our function \textit{ls\_solve} in such a way that for linear systems bigger than
+1000000 entries (which is the equivalent to mesh size 1/100) we want to use GMRES, otherwise MINRES.
+\\
+\includegraphics[scale=0.7]{./linear_solver_error_behaviour}
+\includegraphics[scale=0.7]{./linear_solver_runtime}
+\section{A posteriori error estimator}
+Our empirical investigations have shown, that the runge error indicator is reliable. In the following figure we can see the a posteriori error estimator for polynomial degree 1 for different mesh sizes. \\
+\includegraphics[scale=0.7]{./error_runge}
 \end{document}

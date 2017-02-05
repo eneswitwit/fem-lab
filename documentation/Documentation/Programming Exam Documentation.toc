@@ -18,3 +18,5 @@
 \contentsline {section}{\numberline {2.7}Presentation of our results}{15}
 \contentsline {section}{\numberline {2.8}Runtime optimization}{15}
 \contentsline {chapter}{\numberline {3}Results}{20}
+\contentsline {section}{\numberline {3.1}Linear solver}{20}
+\contentsline {section}{\numberline {3.2}A posteriori error estimator}{21}
