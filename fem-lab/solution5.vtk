@@ -1,0 +1,11 @@
+# vtk DataFile Version 2.0
+Volume example
+ASCII
+DATASET STRUCTURED_POINTS
+DIMENSIONS 6 6 1
+ASPECT_RATIO 1 1 1
+ORIGIN 0 0 0
+POINT_DATA 36
+SCALARS volume_scalars char 1
+LOOKUP_TABLE default
+100    81    31   -31   -81  -100    81    65    25   -25   -65   -81    31    25    10   -10   -25   -31   -31   -25   -10    10    25    31   -81   -65   -25    25    65    81  -100   -81   -31    31    81   100

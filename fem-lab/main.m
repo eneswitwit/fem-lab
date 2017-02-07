@@ -45,16 +45,18 @@ function [error_L2 , overall_runtime, u_coeff, error_runge] = main(mesh_size = 1
 
     % ------- Plotting --------
     % m_plot will plot the approximation, the exact solution and the right hand side of the strong form to illustrate, that it is in fact a multiple of the solution
-    m_plot_solution(u_coeff,Cell,Vertex,SF);
+    %m_plot_solution(u_coeff,Cell,Vertex,SF);
     % -------------------------
            
     % ------ Error Analysis ------
     % A posteriori error estimator
-    error_runge = error_runge(mesh_size,pol_deg,u_coeff);
+    %error_runge = error_runge(mesh_size,pol_deg,u_coeff);
+	error_runge = 0;
     disp(['---------------   Estimated L2 error: ' num2str(error_runge)]);
     fflush(stdout);
     % error_L2 computes the error, using the exact solution and the L2-norm
-    error_L2 = error_L2(u,u_exact,10);
+    %error_L2 = error_L2(u,u_exact,10);
+	error_L2=0;
     disp(['---------------   L2 error: ' num2str(error_L2)]);
     disp(' ');
     fflush(stdout);
